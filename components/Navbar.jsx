@@ -19,8 +19,8 @@ export default function Navbar() {
   };
   return (
     <div>
-      Navbar
-      <button onClick={Changetheme}>{themes}</button>
+     <h1  className="text-black dark:text-red-500">Navbar</h1>  
+      <button className="text-black dark:text-red-500" onClick={Changetheme}>{themes}</button>
     </div>
   );
 }
