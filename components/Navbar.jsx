@@ -24,7 +24,7 @@ export default function Navbar() {
     setshowmenu(!showmenu);
   };
   return (
-    <div className="p-3.5 border-b-[1px] dark:border-slate-800 border-slate-500">
+    <div className="p-3.5 z-40 border-b-[1px] dark:border-slate-800 border-slate-300">
       <div className="flex justify-between">
         <div>
           <h1 className="text-2xl font-bold text-black dark:text-white">
@@ -50,7 +50,7 @@ export default function Navbar() {
           <div className="relative cursor-pointer ">
             <FaUserCircle size={25} onClick={showmenuUser} />
             {showmenu && (
-              <div className="absolute right-0 w-32 h-40 transition-transform delay-500 shadow-md rounded-xl top-10 dark:bg-black shadow-slate-600"></div>
+             <div className="absolute right-0 z-50 w-32 h-40 transition-transform delay-500 bg-white shadow-md opacity-100 rounded-xl top-10 dark:bg-black shadow-slate-600"></div>
             )}
           </div>
         </div>
