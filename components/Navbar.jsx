@@ -7,6 +7,7 @@ import { MdDarkMode, MdLightMode } from "react-icons/md";
 export default function Navbar() {
   const { systemTheme, theme, setTheme } = useTheme();
   const [themes, setThemes] = useState("dark");
+  const [showmenu, setshowmenu] = useState(false);
   const Changetheme = () => {
     const currenttheme = theme === "system" ? systemTheme : theme;
     if (currenttheme === "dark") {
@@ -18,6 +19,9 @@ export default function Navbar() {
       setTheme("dark");
       setThemes("dark");
     }
+  };
+  const showmenuUser = () => {
+    setshowmenu(!showmenu);
   };
   return (
     <div className="p-3.5 border-b-[1px] dark:border-slate-800 border-slate-500">
@@ -34,9 +38,6 @@ export default function Navbar() {
           <h1 className="text-lg font-medium cursor-pointer">Contact</h1>
         </div>
         <div className="flex items-center space-x-3">
-          <div className="cursor-pointer">
-            <FaUserCircle size={25} />
-          </div>
           {themes === "light" ? (
             <div className="cursor-pointer">
               <MdDarkMode onClick={Changetheme} size={25} />
@@ -46,6 +47,12 @@ export default function Navbar() {
               <MdLightMode size={25} onClick={Changetheme} />
             </div>
           )}
+          <div className="relative cursor-pointer ">
+            <FaUserCircle size={25} onClick={showmenuUser} />
+            {showmenu && (
+              <div className="absolute right-0 w-32 h-40 transition-transform delay-500 shadow-md rounded-xl top-10 dark:bg-black shadow-slate-600"></div>
+            )}
+          </div>
         </div>
       </div>
     </div>
