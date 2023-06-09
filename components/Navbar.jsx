@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { useTheme } from "next-themes";
+import {FaUserCircle} from 'react-icons/fa'
+import {MdDarkMode,MdLightMode} from 'react-icons/md'
 
 export default function Navbar() {
   const { systemTheme, theme, setTheme } = useTheme();
@@ -18,9 +20,25 @@ export default function Navbar() {
     }
   };
   return (
-    <div>
-     <h1  className="text-black dark:text-red-500">Navbar</h1>  
-      <button className="text-black dark:text-red-500" onClick={Changetheme}>{themes}</button>
+    <div className="p-3.5 border-b-[1px] dark:border-slate-800 border-slate-500">
+      <div className="flex justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-black dark:text-white">
+            Food Delivery
+          </h1>
+        </div>
+        <div className="items-center hidden space-x-4 sm:flex">
+          <h1 className="text-lg font-medium cursor-pointer">Home</h1>
+          <h1 className="text-lg font-medium cursor-pointer">Home</h1>
+          <h1 className="text-lg font-medium cursor-pointer">About</h1>
+          <h1 className="text-lg font-medium cursor-pointer">Contact</h1>
+        </div>
+        <div className="flex items-center space-x-3 cursor-pointer">
+          <FaUserCircle size={25}/>
+       {themes === "light" ? <MdDarkMode onClick={Changetheme} size={25}/>
+        :  <MdLightMode size={25} onClick={Changetheme}/> }
+        </div>
+      </div>
     </div>
   );
 }
