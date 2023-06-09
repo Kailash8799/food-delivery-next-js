@@ -1,17 +1,17 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Food delivery app',
-  description: 'Created by kailash rajput',
-}
+"use client"
+import "./globals.css";
+import { ThemeProvider } from "next-themes";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <title>Food delivery app</title>
+        <meta name="description" content="Created by kailash rajput" />
+      </head>
+      <body>
+        <ThemeProvider enableSystem={true} attribute="class">{children}</ThemeProvider>
+      </body>
     </html>
-  )
+  );
 }
