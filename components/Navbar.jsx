@@ -31,8 +31,8 @@ export default function Navbar() {
     setshowmenu(!showmenu);
   };
   return (
-    <div className="sticky top-0">
-      <div className="p-3.5 z-40 border-b-[1px] dark:border-slate-800 border-slate-300">
+    <div className="sticky top-0 z-50">
+      <div className="p-3.5 z-40 bg-white dark:bg-black border-b-[1px] dark:border-slate-800 border-slate-300">
         <div className="flex justify-between">
           <div>
             <h1 className="text-2xl font-bold text-black dark:text-white">
