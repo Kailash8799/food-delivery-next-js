@@ -13,14 +13,14 @@ export default function RootLayout({ children }) {
         <meta name="description" content="Created by kailash rajput" />
       </head>
       <body className="dark:bg-black">
-        <ThemeProvider enableSystem={true} attribute="class">
-          
+        <Provider>
+          <ThemeProvider enableSystem={true} attribute="class">
             <Pagewrapper>
               <Navbar />
               {children}
             </Pagewrapper>
-          
-        </ThemeProvider>
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );
