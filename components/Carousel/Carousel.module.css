@@ -24,6 +24,7 @@
     color: #aabbcc;
     user-select: none;
     z-index: 0;
+    cursor: pointer;
 }
 
 .LeftArrow:hover {
@@ -43,6 +44,7 @@
     color: #aabbcc;
     user-select: none;
     z-index: 0;
+    cursor: pointer;
 }
 
 .RightArrow:hover {
