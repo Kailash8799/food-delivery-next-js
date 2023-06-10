@@ -4,11 +4,13 @@ import { useTheme } from "next-themes";
 import { FaUserCircle } from "react-icons/fa";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Navbar() {
   const { systemTheme, theme, setTheme } = useTheme();
   const [themes, setThemes] = useState("dark");
   const [showmenu, setshowmenu] = useState(false);
+  const [isLogin, setisLogin] = useState(false);
   const Changetheme = () => {
     const currenttheme = theme === "system" ? systemTheme : theme;
     if (currenttheme === "dark") {
@@ -35,10 +37,18 @@ export default function Navbar() {
             </h1>
           </div>
           <div className="items-center hidden space-x-4 sm:flex">
-            <h1 className="text-lg font-medium cursor-pointer">Home</h1>
-            <h1 className="text-lg font-medium cursor-pointer">Home</h1>
-            <h1 className="text-lg font-medium cursor-pointer">About</h1>
-            <h1 className="text-lg font-medium cursor-pointer">Contact</h1>
+            <Link href={"/"}>
+              <h1 className="text-lg font-medium cursor-pointer">Home</h1>
+            </Link>
+            <Link href={"/"}>
+              <h1 className="text-lg font-medium cursor-pointer">Home</h1>
+            </Link>
+            <Link href={"/"}>
+              <h1 className="text-lg font-medium cursor-pointer">About</h1>
+            </Link>
+            <Link href={"/"}>
+              <h1 className="text-lg font-medium cursor-pointer">Contact</h1>
+            </Link>
           </div>
           <div className="flex items-center space-x-3">
             {themes === "light" ? (
@@ -56,15 +66,51 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      {showmenu && (
+      {showmenu && !isLogin && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          transition={{ delay: 0.1,type:'spring',stiffness: 100 }}
+          transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
         >
-          <div className="absolute z-50 w-32 h-40 transition-transform delay-500 bg-white border-t-[1px] border-slate-200 shadow-md opacity-100 dark:border-slate-700 right-4 rounded-xl dark:bg-black shadow-slate-600">
-            
+          <div className="absolute p-2 z-50 w-32 h-32 items-center transition-transform delay-500 bg-white border-t-[1px] border-slate-200 shadow-md opacity-100 dark:border-slate-700 right-4 rounded-xl dark:bg-black shadow-slate-600 space-y-3">
+            <Link href={"/signin"}>
+              <h1
+                onClick={() => {
+                  setshowmenu(false);
+                }}
+                className="text-lg font-bold text-black cursor-pointer dark:text-white"
+              >
+                Login
+              </h1>
+            </Link>
+            <Link href={"/signup"}>
+              <h1
+                onClick={() => {
+                  setshowmenu(false);
+                }}
+                className="text-lg font-bold text-black cursor-pointer dark:text-white"
+              >
+                Signup
+              </h1>
+            </Link>
+          </div>
+        </motion.div>
+      )}
+      {showmenu && isLogin && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
+        >
+          <div className="absolute p-2 z-50 w-32 h-40 transition-transform delay-500 bg-white border-t-[1px] border-slate-200 shadow-md opacity-100 dark:border-slate-700 right-4 rounded-xl dark:bg-black shadow-slate-600 space-y-3">
+            <h1 className="text-lg font-bold text-black dark:text-white">
+              Profile
+            </h1>
+            <h1 className="text-lg font-bold text-black dark:text-white">
+              Orders
+            </h1>
           </div>
         </motion.div>
       )}

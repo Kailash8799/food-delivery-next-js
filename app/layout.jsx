@@ -1,6 +1,9 @@
 "use client";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
+import Provider from "@/components/provider";
+import Navbar from "@/components/Navbar";
+import Pagewrapper from "./page-wrapper";
 
 export default function RootLayout({ children }) {
   return (
@@ -11,7 +14,12 @@ export default function RootLayout({ children }) {
       </head>
       <body className="dark:bg-black">
         <ThemeProvider enableSystem={true} attribute="class">
-          {children}
+          <Provider>
+            <Pagewrapper>
+              <Navbar />
+              {children}
+            </Pagewrapper>
+          </Provider>
         </ThemeProvider>
       </body>
     </html>
