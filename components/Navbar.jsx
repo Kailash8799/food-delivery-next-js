@@ -1,16 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { FaUserCircle } from "react-icons/fa";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import {usePathname} from 'next/navigation'
+
+
 
 export default function Navbar() {
   const { systemTheme, theme, setTheme } = useTheme();
   const [themes, setThemes] = useState("dark");
   const [showmenu, setshowmenu] = useState(false);
   const [isLogin, setisLogin] = useState(false);
+  const pathname = usePathname()
   const Changetheme = () => {
     const currenttheme = theme === "system" ? systemTheme : theme;
     if (currenttheme === "dark") {
@@ -26,9 +30,8 @@ export default function Navbar() {
   const showmenuUser = () => {
     setshowmenu(!showmenu);
   };
-
   return (
-    <>
+    <div className="sticky top-0">
       <div className="p-3.5 z-40 border-b-[1px] dark:border-slate-800 border-slate-300">
         <div className="flex justify-between">
           <div>
@@ -36,18 +39,26 @@ export default function Navbar() {
               Food Delivery
             </h1>
           </div>
-          <div className="items-center hidden space-x-4 sm:flex">
-            <Link href={"/"}>
-              <h1 className="text-lg font-medium cursor-pointer">Home</h1>
+          <div className="items-center hidden space-x-5 lg:space-x-8 sm:flex">
+            <Link href={"/"} >
+              <h1 className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${pathname === '/' ? "shadow-md shadow-slate-600" : ""}`}>
+                Home
+              </h1>
             </Link>
-            <Link href={"/"}>
-              <h1 className="text-lg font-medium cursor-pointer">Home</h1>
+            <Link href={"/food"}>
+              <h1 className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${pathname === '/food' ? "shadow-md shadow-slate-600" : ""}`}>
+                Food
+              </h1>
             </Link>
-            <Link href={"/"}>
-              <h1 className="text-lg font-medium cursor-pointer">About</h1>
+            <Link href={"/about"}>
+              <h1 className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${pathname === '/about' ? "shadow-md shadow-slate-600" : ""}`}>
+                About
+              </h1>
             </Link>
-            <Link href={"/"}>
-              <h1 className="text-lg font-medium cursor-pointer">Contact</h1>
+            <Link href={"/contact"}>
+              <h1 className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${pathname === '/contact' ? "shadow-md shadow-slate-600" : ""}`}>
+                Contact
+              </h1>
             </Link>
           </div>
           <div className="flex items-center space-x-3">
@@ -114,6 +125,6 @@ export default function Navbar() {
           </div>
         </motion.div>
       )}
-    </>
+    </div>
   );
 }

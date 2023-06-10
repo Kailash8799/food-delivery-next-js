@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/Navbar";
 import Pagewrapper from "./page-wrapper";
 import Provider from "@/components/Provider";
+import Footer from "@/components/Footer";
 
 export default function RootLayout({ children }) {
   return (
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
             <Pagewrapper>
               <Navbar />
               {children}
+              <Footer />
             </Pagewrapper>
           </ThemeProvider>
         </Provider>
