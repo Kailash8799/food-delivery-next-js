@@ -6,22 +6,22 @@ function Signup() {
   return (
     <div className="w-full h-full bg-white sm:px-4 sm:py-16 dark:bg-black">
       <div className="flex flex-col items-center justify-center">
-        <div className="w-full p-10 rounded shadow bg-gradient-to-tl dark:from-black dark:to-white from-white to-slate-700 lg:w-1/3 md:w-1/2">
+        <div className="w-full p-10 rounded shadow bg-gradient-to-tl dark:from-slate-600 dark:to-black from-white to-slate-300 lg:w-1/3 md:w-1/2">
           <p
             tabIndex={0}
             aria-label="Login to your account"
-            className="text-2xl font-extrabold leading-6 text-gray-800"
+            className="text-2xl font-extrabold leading-6 text-gray-400 dark:text-gray-600"
           >
             Create an account
           </p>
-          <p className="mt-4 text-sm font-medium leading-none text-gray-200 dark:text-gray-600">
+          <p className="mt-4 text-sm font-medium leading-none text-gray-500 dark:text-slate-300">
             Already have an account?&nbsp;
             <Link href="/signin">
               <span
                 tabIndex={0}
                 role="link"
                 aria-label="Sign up here"
-                className="text-sm font-medium leading-none text-gray-800 underline cursor-pointer"
+                className="text-sm font-medium leading-none text-gray-800 underline cursor-pointer dark:text-slate-500"
               >
                 Sign in here
               </span>
@@ -56,7 +56,7 @@ function Signup() {
                 fill="#EB4335"
               />
             </svg>
-            <p className="ml-4 text-base font-medium text-gray-700">
+            <p className="ml-4 text-base font-medium text-gray-700 dark:text-slate-300">
               Continue with Google
             </p>
           </button>
@@ -77,7 +77,7 @@ function Signup() {
                 fill="#333333"
               />
             </svg>
-            <p className="ml-4 text-base font-medium text-gray-700">
+            <p className="ml-4 text-base font-medium text-gray-700 dark:text-slate-300">
               Continue with Github
             </p>
           </button>
@@ -89,7 +89,7 @@ function Signup() {
             <hr className="w-full bg-gray-400 " />
           </div>
           <div>
-            <lable className="text-sm font-medium leading-none text-gray-800">
+            <lable className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
               Name
             </lable>
             <input
@@ -100,7 +100,7 @@ function Signup() {
             />
           </div>
           <div className="w-full mt-6">
-            <lable className="text-sm font-medium leading-none text-gray-800">
+            <lable className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
               Email
             </lable>
             <input
@@ -111,7 +111,7 @@ function Signup() {
             />
           </div>
           <div className="w-full mt-6">
-            <lable className="text-sm font-medium leading-none text-gray-800">
+            <lable className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
               Password
             </lable>
             <div className="relative flex items-center justify-center">
