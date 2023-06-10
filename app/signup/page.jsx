@@ -90,7 +90,8 @@ function Signup() {
           </div>
           <div>
             <lable className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
-              Name
+              Student ID
+              {/* Name */}
             </lable>
             <input
               aria-label="enter name"

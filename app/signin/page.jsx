@@ -59,6 +59,14 @@ function Login() {
                             </div>
                         </div>
                     </div>
+                    <div>
+                    <p className="mt-4 text-sm font-medium leading-none text-gray-500 dark:text-slate-300">
+                        <Link href="/forgot"><span tabIndex={0} role="link" aria-label="Sign up here" className="text-sm font-medium leading-none text-gray-800 underline cursor-pointer dark:text-slate-600">
+                            
+                        Forgot your password? 
+                        </span></Link>
+                    </p>
+                    </div>
                     <div className="mt-8">
                         <button role="button" aria-label="create my account" className="w-full py-4 text-xl font-bold leading-none text-white transition-transform border rounded focus:ring-indigo-700 focus:outline-none dark:border-slate-700 bg-gradient-to-tl from-pink-500 to-blue-400 border-slate-200 hover:from-slate-500 hover:to-white">
                             Login
