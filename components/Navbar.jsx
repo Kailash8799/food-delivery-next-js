@@ -73,13 +73,13 @@ export default function Navbar() {
           exit={{ opacity: 0, y: 20 }}
           transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
         >
-          <div className="absolute p-2 z-50 w-32 h-32 items-center transition-transform delay-500 bg-white border-t-[1px] border-slate-200 shadow-md opacity-100 dark:border-slate-700 right-4 rounded-xl dark:bg-black shadow-slate-600 space-y-3">
+          <div className="absolute p-2 z-50 w-32 h-32 items-center transition-transform delay-500 bg-white border-t-[1px] border-slate-200 shadow-md opacity-100 dark:border-slate-700 right-4 rounded-xl dark:bg-black shadow-slate-600 space-y-5">
             <Link href={"/signin"}>
               <h1
                 onClick={() => {
                   setshowmenu(false);
                 }}
-                className="text-lg font-bold text-black cursor-pointer dark:text-white"
+                className="px-3 py-1 my-1 text-lg font-bold text-black rounded-lg cursor-pointer dark:text-white hover:shadow-md hover:shadow-slate-600"
               >
                 Login
               </h1>
@@ -89,7 +89,7 @@ export default function Navbar() {
                 onClick={() => {
                   setshowmenu(false);
                 }}
-                className="text-lg font-bold text-black cursor-pointer dark:text-white"
+                className="px-3 py-1 my-1 text-lg font-bold text-black rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 dark:text-white "
               >
                 Signup
               </h1>
