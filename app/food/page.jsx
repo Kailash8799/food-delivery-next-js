@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Food() {
   return (
-    <div>Food</div>
+    <div className='min-h-screen'>Food</div>
   )
 }

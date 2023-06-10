@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Login() {
   return (
-    <div>
+    <div className="min-h-screen">
       <section className="h-screen">
         <div className="h-full">
           <div className="flex flex-wrap items-center justify-center h-full g-6 lg:justify-between">
