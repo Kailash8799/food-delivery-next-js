@@ -10,7 +10,7 @@ function Signup() {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [loading, setloading] = useState(true);
+  const [loading, setloading] = useState(false);
   const {data:session} = useSession()
   const router = useRouter()
   useEffect(()=>{
