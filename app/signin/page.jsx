@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { ColorRing } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
@@ -10,7 +10,13 @@ function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [loading, setloading] = useState(false);
+  const {data:session} = useSession()
   const router = useRouter()
+  useEffect(()=>{
+    if(session && session?.user?.email){
+      router.push("/")
+    }
+  },[session,router])
   const handleSignIn = () => {
     setloading(true);
     const data = { email: email, password: password };
@@ -206,7 +212,7 @@ function Login() {
                   height="40"
                   width="40"
                   ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
+                  wrapperStyle={{margin:"auto"}}
                   wrapperClass="blocks-wrapper"
                   colors={[
                     "#e15b64",

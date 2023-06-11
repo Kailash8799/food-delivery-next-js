@@ -5,16 +5,21 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {usePathname} from 'next/navigation'
-
-
+import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
   const { systemTheme, theme, setTheme } = useTheme();
   const [themes, setThemes] = useState("dark");
   const [showmenu, setshowmenu] = useState(false);
   const [isLogin, setisLogin] = useState(false);
-  const pathname = usePathname()
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (session?.user?.email) {
+      setisLogin(true);
+    }
+  }, [session]);
+  const pathname = usePathname();
   const Changetheme = () => {
     const currenttheme = theme === "system" ? systemTheme : theme;
     if (currenttheme === "dark") {
@@ -40,23 +45,39 @@ export default function Navbar() {
             </h1>
           </div>
           <div className="items-center hidden space-x-5 lg:space-x-8 sm:flex">
-            <Link href={"/"} >
-              <h1 className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${pathname === '/' ? "shadow-md shadow-slate-600" : ""}`}>
+            <Link href={"/"}>
+              <h1
+                className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${
+                  pathname === "/" ? "shadow-md shadow-slate-600" : ""
+                }`}
+              >
                 Home
               </h1>
             </Link>
             <Link href={"/food"}>
-              <h1 className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${pathname === '/food' ? "shadow-md shadow-slate-600" : ""}`}>
+              <h1
+                className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${
+                  pathname === "/food" ? "shadow-md shadow-slate-600" : ""
+                }`}
+              >
                 Food
               </h1>
             </Link>
             <Link href={"/about"}>
-              <h1 className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${pathname === '/about' ? "shadow-md shadow-slate-600" : ""}`}>
+              <h1
+                className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${
+                  pathname === "/about" ? "shadow-md shadow-slate-600" : ""
+                }`}
+              >
                 About
               </h1>
             </Link>
             <Link href={"/contact"}>
-              <h1 className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${pathname === '/contact' ? "shadow-md shadow-slate-600" : ""}`}>
+              <h1
+                className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${
+                  pathname === "/contact" ? "shadow-md shadow-slate-600" : ""
+                }`}
+              >
                 Contact
               </h1>
             </Link>
@@ -115,12 +136,35 @@ export default function Navbar() {
           exit={{ opacity: 0, y: 20 }}
           transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
         >
-          <div className="absolute p-2 z-50 w-32 h-40 transition-transform delay-500 bg-white border-t-[1px] border-slate-200 shadow-md opacity-100 dark:border-slate-700 right-4 rounded-xl dark:bg-black shadow-slate-600 space-y-3">
-            <h1 className="text-lg font-bold text-black dark:text-white">
-              Profile
-            </h1>
-            <h1 className="text-lg font-bold text-black dark:text-white">
-              Orders
+          <div className="absolute p-2 z-50 w-32 h-36 items-center transition-transform delay-500 bg-white border-t-[1px] border-slate-200 shadow-md opacity-100 dark:border-slate-700 right-4 rounded-xl dark:bg-black shadow-slate-600 space-y-2">
+            <Link href={"/profile"}>
+              <h1
+                onClick={() => {
+                  setshowmenu(false);
+                }}
+                className="px-3 py-1 my-1 text-lg font-bold text-black rounded-lg cursor-pointer dark:text-white hover:shadow-md hover:shadow-slate-600"
+              >
+                Profile
+              </h1>
+            </Link>
+            <Link href={"/orders"}>
+              <h1
+                onClick={() => {
+                  setshowmenu(false);
+                }}
+                className="px-3 py-1 my-1 text-lg font-bold text-black rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 dark:text-white "
+              >
+                Orders
+              </h1>
+            </Link>
+            <h1
+              onClick={() => {
+                signOut();
+                setshowmenu(false)
+              }}
+              className="px-3 py-1 mb-2 text-lg font-bold text-black rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 dark:text-white "
+            >
+              Logout
             </h1>
           </div>
         </motion.div>

@@ -1,14 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { ColorRing } from "react-loader-spinner";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function Signup() {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
+  const {data:session} = useSession()
+  const router = useRouter()
+  useEffect(()=>{
+    if(session && session?.user?.email){
+      router.push("/")
+    }
+  },[session,router])
   const createUser = async () => {
     setloading(true);
     try {
@@ -201,7 +210,7 @@ function Signup() {
                   height="40"
                   width="40"
                   ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
+                  wrapperStyle={{margin:"auto"}}
                   wrapperClass="blocks-wrapper"
                   colors={[
                     "#e15b64",

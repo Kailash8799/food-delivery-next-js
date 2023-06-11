@@ -4,14 +4,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <div className="">
-        <Carousel infinite timer={10000} stopOnManual>
-          <picture>
-            <img
-              className="object-fill h-full w-full max-h-[400px]"
-              src="/img-1.jpg"
-              alt="food image"
-            />
-          </picture>
+        <Carousel infinite timer={5000} stopOnManual>
           <picture>
             <img
               className="object-fill h-full w-full max-h-[400px]"
