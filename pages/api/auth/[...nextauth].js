@@ -15,18 +15,18 @@ export const authOptions = {
       async authorize(credentials, req) {
         await dbConnect()
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials🅿️");
+          throw new Error("Invalid credentials");
         }
         const user = await User.findOne({email:credentials?.email}) 
         if (!user || !user?.password) {
-            throw new Error("Invalid credentials💕")
+            throw new Error("Invalid credentials")
         }
         const isCorrectPass = await bcrypt.compare(
             credentials.password,user.password
         )
 
         if(!isCorrectPass){
-            throw new Error("Invalid credentials😂")
+            throw new Error("Invalid credentials")
         }
         return user;
       },
