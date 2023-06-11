@@ -1,22 +1,34 @@
+import User from "@/models/User";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import dbConnect from "@/database/_dbconnect";
+import bcrypt from 'bcrypt'
 
 export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "email", type: "email", placeholder: "email" },
+        email: { label: "email", type: "email", placeholder: "Email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
-
-        if (user) {
-          return user;
-        } else {
-          return null;
+        await dbConnect()
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Invalid credentials🅿️");
         }
+        const user = await User.findOne({email:credentials?.email}) 
+        if (!user || !user?.password) {
+            throw new Error("Invalid credentials💕")
+        }
+        const isCorrectPass = await bcrypt.compare(
+            credentials.password,user.password
+        )
+
+        if(!isCorrectPass){
+            throw new Error("Invalid credentials😂")
+        }
+        return user;
       },
     }),
   ],

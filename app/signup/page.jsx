@@ -1,8 +1,47 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
+import { ColorRing } from "react-loader-spinner";
 
 function Signup() {
+  const [name, setname] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [loading, setloading] = useState(false);
+  const createUser = async () => {
+    setloading(true);
+    try {
+      const responce = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/signup`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            secret: "thiswillbekailashloginsystem",
+          }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      const data = await responce.json();
+      if (data.success) {
+        toast.success(data.message);
+        setname("");
+        setemail("");
+        setpassword("");
+      } else {
+        toast.error(data.message);
+      }
+      setloading(false);
+    } catch (error) {
+      toast.error(error);
+      setloading(false);
+    }
+  };
   return (
     <div className="w-full h-full bg-white sm:px-4 sm:py-16 dark:bg-black">
       <div className="flex flex-col items-center justify-center">
@@ -97,6 +136,10 @@ function Signup() {
               aria-label="enter name"
               role="input"
               type="text"
+              value={name}
+              onChange={(e) => {
+                setname(e.target.value);
+              }}
               className="w-full py-3 pl-3 mt-2 text-xs font-medium leading-none text-gray-800 bg-gray-200 border rounded focus:outline-none"
             />
           </div>
@@ -108,6 +151,10 @@ function Signup() {
               aria-label="enter email adress"
               role="input"
               type="email"
+              value={email}
+              onChange={(e) => {
+                setemail(e.target.value);
+              }}
               className="w-full py-3 pl-3 mt-2 text-xs font-medium leading-none text-gray-800 bg-gray-200 border rounded focus:outline-none"
             />
           </div>
@@ -120,6 +167,10 @@ function Signup() {
                 aria-label="enter Password"
                 role="input"
                 type="password"
+                value={password}
+                onChange={(e) => {
+                  setpassword(e.target.value);
+                }}
                 className="w-full py-3 pl-3 mt-2 text-xs font-medium leading-none text-gray-800 bg-gray-200 border rounded focus:outline-none"
               />
               <div className="absolute right-0 mt-2 mr-3 cursor-pointer">
@@ -139,13 +190,38 @@ function Signup() {
             </div>
           </div>
           <div className="mt-8">
-            <button
-              role="button"
-              aria-label="create my account"
-              className="w-full py-4 text-xl font-bold leading-none text-white transition-transform border rounded focus:ring-indigo-700 focus:outline-none dark:border-slate-700 bg-gradient-to-tl from-pink-500 to-blue-400 border-slate-200 hover:from-slate-500 hover:to-white"
-            >
-              Create my account
-            </button>
+            {loading ? (
+              <button
+                role="button"
+                aria-label="create my account"
+                className="items-center justify-center w-full py-2 text-xl font-bold leading-none text-center text-white transition-transform border rounded focus:ring-indigo-700 focus:outline-none dark:border-slate-700 bg-gradient-to-tl from-pink-500 to-blue-400 border-slate-200 hover:from-slate-500 hover:to-white"
+              >
+                <ColorRing
+                  visible={true}
+                  height="40"
+                  width="40"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={[
+                    "#e15b64",
+                    "#f47e60",
+                    "#f8b26a",
+                    "#abbd81",
+                    "#849b87",
+                  ]}
+                />
+              </button>
+            ) : (
+              <button
+                role="button"
+                aria-label="create my account"
+                onClick={createUser}
+                className="w-full py-4 text-xl font-bold leading-none text-white transition-transform border rounded focus:ring-indigo-700 focus:outline-none dark:border-slate-700 bg-gradient-to-tl from-pink-500 to-blue-400 border-slate-200 hover:from-slate-500 hover:to-white"
+              >
+                Create my account
+              </button>
+            )}
           </div>
         </div>
       </div>
