@@ -137,10 +137,10 @@ function Signup() {
             <hr className="w-full bg-gray-400 " />
           </div>
           <div>
-            <lable className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
+            <label className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
               Student ID
               {/* Name */}
-            </lable>
+            </label>
             <input
               aria-label="enter name"
               role="input"
@@ -153,9 +153,9 @@ function Signup() {
             />
           </div>
           <div className="w-full mt-6">
-            <lable className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
+            <label className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
               Email
-            </lable>
+            </label>
             <input
               aria-label="enter email adress"
               role="input"
@@ -168,9 +168,9 @@ function Signup() {
             />
           </div>
           <div className="w-full mt-6">
-            <lable className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
+            <label className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
               Password
-            </lable>
+            </label>
             <div className="relative flex items-center justify-center">
               <input
                 aria-label="enter Password"

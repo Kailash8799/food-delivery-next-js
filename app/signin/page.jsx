@@ -145,9 +145,9 @@ function Login() {
             <hr className="w-full bg-gray-400 " />
           </div>
           <div>
-            <lable className="text-sm font-medium leading-none text-gray-800 dark:text-slate-400">
+            <label className="text-sm font-medium leading-none text-gray-800 dark:text-slate-400">
               Email
-            </lable>
+            </label>
             <input
               aria-label="enter email adress"
               role="input"
@@ -158,9 +158,9 @@ function Login() {
             />
           </div>
           <div className="w-full mt-6">
-            <lable className="text-sm font-medium leading-none text-gray-800 dark:text-slate-400">
+            <label className="text-sm font-medium leading-none text-gray-800 dark:text-slate-400">
               Password
-            </lable>
+            </label>
             <div className="relative flex items-center justify-center">
               <input
                 aria-label="enter Password"

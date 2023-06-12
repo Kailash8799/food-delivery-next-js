@@ -13,8 +13,8 @@ export default function Footer() {
         </Link>
       </div>
       <div className="flex items-center space-x-2 text-center sm:space-x-7">
-        <Link href={"https://twitter.com/Kailash8799"}><BsTwitter size={27} color="#feda75"/></Link>
-        <Link href={"https://www.instagram.com/thekailash8799/"}><BsInstagram size={27} color="#feda75"/></Link>
+        <Link target="_blank" href={"https://twitter.com/Kailash8799"}><BsTwitter size={27} color="#feda75"/></Link>
+        <Link target="_blank" href={"https://www.instagram.com/thekailash8799/"}><BsInstagram size={27} color="#feda75"/></Link>
       </div>
     </div>
   );
