@@ -3,6 +3,7 @@ import dbConnect from "@/database/_dbconnect";
 import User from "@/models/User";
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
 
 export async function POST(req) {
   await dbConnect();
@@ -25,6 +26,15 @@ export async function POST(req) {
       password: hashPassword,
     });
     if (cu) {
+      let token = jwt.sign(
+        { success: true, userid: cu?._id, email: cu?.email },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" },
+        {
+          alg: "PS512",
+          typ: "JWT",
+        }
+      );
       let htmlemail = `<!DOCTYPE html>
       <html>
       <head>
@@ -207,7 +217,7 @@ export async function POST(req) {
                           <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                               <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                                <a href="${process.env.NEXT_PUBLIC_HOST}/verifyemail?token=${cu?._id}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Verify email</a>
+                                <a href="${process.env.NEXT_PUBLIC_HOST}/verifyemail?token=${token}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Verify email</a>
                               </td>
                             </tr>
                           </table>
@@ -222,7 +232,7 @@ export async function POST(req) {
                 <tr>
                   <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
                     <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
-                    <p style="margin: 0;"><a href="${process.env.NEXT_PUBLIC_HOST}" target="_blank">${process.env.NEXT_PUBLIC_HOST}/verifyemail?token=${cu?._id}</a></p>
+                    <p style="margin: 0;"><a href="${process.env.NEXT_PUBLIC_HOST}" target="_blank">${process.env.NEXT_PUBLIC_HOST}/verifyemail?token=${token}</a></p>
                   </td>
                 </tr>
                 <!-- end copy -->
@@ -276,7 +286,7 @@ export async function POST(req) {
         <!-- end body -->
       
       </body>
-      </html>`
+      </html>`;
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -291,7 +301,7 @@ export async function POST(req) {
         from: process.env.EMAIL,
         to: cu?.email,
         subject: "Verify User",
-        html:htmlemail
+        html: htmlemail,
       };
 
       const server = await new Promise((resolve, reject) => {

@@ -13,7 +13,7 @@ function Forgot() {
     }
   }, [session, router]);
   return (
-    <div className="w-full h-full min-h-screen bg-white sm:px-4 sm:py-16 dark:bg-black">
+    <div className="w-full h-full min-h-screen py-24 bg-white sm:px-4 dark:bg-black">
       <div className="flex flex-col items-center justify-center mt-10">
         <div className="w-full p-10 rounded shadow bg-gradient-to-tl dark:from-slate-600 dark:to-black from-white to-slate-300 lg:w-1/3 md:w-1/2">
           <p

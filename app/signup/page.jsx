@@ -29,7 +29,7 @@ function Signup() {
             name: name,
             email: email,
             password: password,
-            secret: "thiswillbekailashloginsystem",
+            secret: `${process.env.NEXT_PUBLIC_SECRET}`,
           }),
           headers: {
             "Content-type": "application/json",
