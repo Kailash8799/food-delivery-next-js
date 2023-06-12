@@ -1,6 +1,7 @@
 "use client"
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { ColorRing } from "react-loader-spinner";
 
 export default function Contact() {
@@ -8,7 +9,46 @@ export default function Contact() {
   const [email, setemail] = useState("");
   const [message, setmessage] = useState("");
   const [loading, setloading] = useState(false);
+  const [mounted, setmounted] = useState(false);
+  useEffect(() => {
+    setmounted(true)
+  }, [])
+  
   const {data:session} = useSession()
+  const sendMessage = async()=>{
+    if (!mounted) return;
+    setloading(true)
+    try {
+      const responce = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/contact`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            name:name,
+            email:session?.user?.email,
+            message:message,
+            secret: `${process.env.NEXT_PUBLIC_SECRET}`,
+          }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      const data = await responce.json();
+      if (data.success) {
+        toast.success(data.message);
+        setname("")
+        setemail("")
+        setmessage("")
+      } else {
+        toast.error(data.message);
+      }
+      setloading(false);
+    } catch (error) {
+      toast.error("Some error accured")
+      setloading(false)
+    }
+  }
   return (
     <div className="min-h-screen">
       <section className="relative text-gray-600 body-font">
@@ -113,6 +153,7 @@ export default function Contact() {
                     <button
                       role="button"
                       disabled={!session}
+                      onClick={sendMessage}
                       aria-label="Send message"
                       className="w-full py-4 text-xl font-bold leading-none text-white transition-transform border rounded focus:ring-indigo-700 focus:outline-none dark:border-slate-700 bg-gradient-to-tl from-pink-500 to-blue-400 border-slate-200 hover:from-slate-500 hover:to-white disabled:from-pink-300 disabled:to-blue-300"
                     >
