@@ -164,7 +164,7 @@ export default function Home() {
             </div>
             <div className="flex flex-wrap -m-4">
               <div className="p-4 xl:w-1/3 md:w-1/2">
-                <div className="p-6 transition-transform border border-gray-200 rounded-lg hover:scale-105 dark:border-slate-900">
+                <div className="p-6 transition-transform border border-gray-200 rounded-lg shadow-md shadow-slate-700 hover:scale-105 dark:border-slate-900">
                   <div className="inline-flex items-center justify-center w-10 h-10 mb-4 text-indigo-500 bg-indigo-100 rounded-full">
                     <svg
                       fill="none"
@@ -188,7 +188,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="p-4 xl:w-1/3 md:w-1/2">
-                <div className="p-6 transition-transform border border-gray-200 rounded-lg hover:scale-105 dark:border-slate-900">
+                <div className="p-6 transition-transform border border-gray-200 rounded-lg shadow-md shadow-slate-700 hover:scale-105 dark:border-slate-900">
                   <div className="inline-flex items-center justify-center w-10 h-10 mb-4 text-indigo-500 bg-indigo-100 rounded-full">
                     <svg
                       fill="none"
@@ -214,7 +214,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="p-4 xl:w-1/3 md:w-1/2">
-                <div className="p-6 transition-transform border border-gray-200 rounded-lg hover:scale-105 dark:border-slate-900">
+                <div className="p-6 transition-transform border border-gray-200 rounded-lg shadow-md shadow-slate-700 hover:scale-105 dark:border-slate-900">
                   <div className="inline-flex items-center justify-center w-10 h-10 mb-4 text-indigo-500 bg-indigo-100 rounded-full">
                     <svg
                       fill="none"
@@ -239,7 +239,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="p-4 xl:w-1/3 md:w-1/2">
-                <div className="p-6 transition-transform border border-gray-200 rounded-lg hover:scale-105 dark:border-slate-900">
+                <div className="p-6 transition-transform border border-gray-200 rounded-lg shadow-md shadow-slate-700 hover:scale-105 dark:border-slate-900">
                   <div className="inline-flex items-center justify-center w-10 h-10 mb-4 text-indigo-500 bg-indigo-100 rounded-full">
                     <svg
                       fill="none"
@@ -263,7 +263,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="p-4 xl:w-1/3 md:w-1/2">
-                <div className="p-6 transition-transform border border-gray-200 rounded-lg hover:scale-105 dark:border-slate-900">
+                <div className="p-6 transition-transform border border-gray-200 rounded-lg shadow-md shadow-slate-700 hover:scale-105 dark:border-slate-900">
                   <div className="inline-flex items-center justify-center w-10 h-10 mb-4 text-indigo-500 bg-indigo-100 rounded-full">
                     <svg
                       fill="none"
@@ -287,7 +287,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="p-4 xl:w-1/3 md:w-1/2">
-                <div className="p-6 transition-transform border border-gray-200 rounded-lg hover:scale-105 dark:border-slate-900">
+                <div className="p-6 transition-transform border border-gray-200 rounded-lg shadow-md shadow-slate-700 hover:scale-105 dark:border-slate-900">
                   <div className="inline-flex items-center justify-center w-10 h-10 mb-4 text-indigo-500 bg-indigo-100 rounded-full">
                     <svg
                       fill="none"
