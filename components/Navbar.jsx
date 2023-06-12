@@ -185,7 +185,7 @@ export default function Navbar() {
         >
           <div className="absolute p-2 z-50 w-32 items-center transition-transform delay-500 bg-white border-t-[1px] border-slate-200 shadow-md opacity-100 dark:border-slate-700 right-4 rounded-xl dark:bg-black shadow-slate-600 space-y-2">
             <div className="sm:hidden">
-              <Link href={"/profile"}>
+              <Link href={"/"}>
                 <h1
                   onClick={() => {
                     setshowmenu(false);
@@ -195,7 +195,7 @@ export default function Navbar() {
                   Home
                 </h1>
               </Link>
-              <Link href={"/profile"}>
+              <Link href={"/food"}>
                 <h1
                   onClick={() => {
                     setshowmenu(false);
@@ -205,7 +205,7 @@ export default function Navbar() {
                   Food
                 </h1>
               </Link>
-              <Link href={"/profile"}>
+              <Link href={"/about"}>
                 <h1
                   onClick={() => {
                     setshowmenu(false);
@@ -215,7 +215,7 @@ export default function Navbar() {
                   About
                 </h1>
               </Link>
-              <Link href={"/profile"}>
+              <Link href={"/contact"}>
                 <h1
                   onClick={() => {
                     setshowmenu(false);
