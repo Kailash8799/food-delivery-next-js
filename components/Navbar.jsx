@@ -94,9 +94,9 @@ export default function Navbar() {
                 <MdLightMode size={25} onClick={Changetheme} />
               </div>
             )}
-            {/* <div className="relative cursor-pointer ">
+            <div className="relative cursor-pointer ">
               <FaShoppingCart size={25} onClick={showmenuUser} />
-            </div> */}
+            </div>
             <div className="relative cursor-pointer ">
               <FaUserCircle size={25} onClick={showmenuUser} />
             </div>
