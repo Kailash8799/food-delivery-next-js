@@ -46,13 +46,14 @@ export async function POST(req) {
         text: email,
       };
 
-      transporter.sendMail(mailOptions, function (error, info) {
+        transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
         } else {
-          console.log("Email sent");
+          console.log("Email sent ");
         }
       });
+
     }
     return NextResponse.json(
       {
