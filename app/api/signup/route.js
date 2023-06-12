@@ -38,6 +38,9 @@ export async function POST(req) {
           user: process.env.EMAIL,
           pass: process.env.PASSWORD_EMAIL,
         },
+        secure: true,
+        host: "smtp.titan.email",
+        port: 465,
       });
       var mailOptions = {
         from: process.env.EMAIL,
@@ -46,14 +49,41 @@ export async function POST(req) {
         text: email,
       };
 
-        transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent ");
-        }
+      const server = await new Promise((resolve, reject) => {
+        // verify connection configuration
+        transporter.verify(function (error, success) {
+          if (success) {
+            resolve(success);
+          }
+          reject(error);
+        });
+      });
+      if (!server) {
+        return NextResponse.json(
+          { success: false, message: "Error failed" },
+          { status: 500 }
+        );
+      }
+
+      const success = await new Promise((resolve, reject) => {
+        // send mail
+        transporter.sendMail(mailOptions).then((info, err) => {
+          if (info.response.includes("250")) {
+            resolve(true);
+          }
+          reject(err);
+        });
       });
 
+      if (!success) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "Error sending email",
+          },
+          { status: 500 }
+        );
+      }
     }
     return NextResponse.json(
       {
