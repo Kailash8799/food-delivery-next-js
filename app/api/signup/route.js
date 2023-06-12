@@ -28,7 +28,7 @@ export async function POST(req) {
       let email = `We have sent you this email in response to your request to reset your password on Codeswear.com
 
       To reset your password, please follow the link below:
-      http://localhost:3000/forget?token=${cu?._id}
+      ${process.env.NEXT_PUBLIC_HOST}/verifyemail?token=${cu?._id}
 
       We recommend that you keep your password secure and not share it with anyone.If you feel your password has been compromised, you can change it by going to your My Account Page and update your password `;
       // --------------------------------
@@ -57,7 +57,7 @@ export async function POST(req) {
     return NextResponse.json(
       {
         success: true,
-        message: "Account has been created successfully",
+        message: "Account has been created successfully. Verify email",
       },
       { status: 200 }
     );
