@@ -4,20 +4,21 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { ColorRing } from "react-loader-spinner";
 import { toast } from "react-hot-toast";
 import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
 
 export default function Verifyemail() {
   const [loading, setloading] = useState(false);
   const params = useSearchParams();
   const [disabled, setdisabled] = useState(true);
   const [mounted, setmounted] = useState(false);
-  const {data:session} = useSession()
-  const router = useRouter()
-  useEffect(()=>{
-    if(session && session?.user?.email){
-      toast.error("First logout from another account")
-      router.push("/")
+  const { data: session } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (session && session?.user?.email) {
+      toast.error("First logout from another account");
+      router.push("/");
     }
-  },[session,router])
+  }, [session, router]);
   useEffect(() => {
     setmounted(true);
     if (!params?.get("token")) {
@@ -60,7 +61,16 @@ export default function Verifyemail() {
   return (
     <div className="w-full h-full min-h-screen bg-white py-28 sm:py-32 sm:px-4 dark:bg-black">
       <div className="flex flex-col items-center justify-center">
-        <div className="w-full p-10 rounded shadow bg-gradient-to-tl dark:from-slate-600 dark:to-black from-white to-slate-300 lg:w-1/3 md:w-1/2">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+          className="w-full p-10 rounded shadow bg-gradient-to-tl dark:from-slate-600 dark:to-black from-white to-slate-300 lg:w-1/3 md:w-1/2"
+        >
           <p
             tabIndex={0}
             aria-label="Verify email address"
@@ -107,7 +117,7 @@ export default function Verifyemail() {
               </button>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

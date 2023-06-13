@@ -5,18 +5,19 @@ import { signIn, useSession } from "next-auth/react";
 import { ColorRing } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [loading, setloading] = useState(false);
-  const {data:session} = useSession()
-  const router = useRouter()
-  useEffect(()=>{
-    if(session && session?.user?.email){
-      router.push("/")
+  const { data: session } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (session && session?.user?.email) {
+      router.push("/");
     }
-  },[session,router])
+  }, [session, router]);
   const handleSignIn = () => {
     setloading(true);
     const data = { email: email, password: password };
@@ -35,7 +36,7 @@ function Login() {
               color: "#fff",
             },
           });
-        router.push("/");
+          router.push("/");
         }
         if (callback?.error) {
           toast.error(callback?.error, {
@@ -62,7 +63,16 @@ function Login() {
   return (
     <div className="w-full h-full bg-white sm:px-4 sm:py-16 dark:bg-black">
       <div className="flex flex-col items-center justify-center">
-        <div className="w-full p-10 rounded shadow bg-gradient-to-tl dark:from-slate-600 dark:to-black from-white to-slate-300 lg:w-1/3 md:w-1/2">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+          className="w-full p-10 rounded shadow bg-gradient-to-tl dark:from-slate-600 dark:to-black from-white to-slate-300 lg:w-1/3 md:w-1/2"
+        >
           <p
             tabIndex={0}
             aria-label="Login to your account"
@@ -153,7 +163,9 @@ function Login() {
               role="input"
               type="email"
               value={email}
-              onChange={(e)=>{setemail(e.target.value)}}
+              onChange={(e) => {
+                setemail(e.target.value);
+              }}
               className="w-full py-3 pl-3 mt-2 text-xs font-medium leading-none text-gray-800 bg-gray-200 border rounded focus:outline-none"
             />
           </div>
@@ -167,7 +179,9 @@ function Login() {
                 role="input"
                 type="password"
                 value={password}
-                onChange={(e)=>{setpassword(e.target.value)}}
+                onChange={(e) => {
+                  setpassword(e.target.value);
+                }}
                 className="w-full py-3 pl-3 mt-2 text-xs font-medium leading-none text-gray-800 bg-gray-200 border rounded focus:outline-none"
               />
               <div className="absolute right-0 mt-2 mr-3 cursor-pointer">
@@ -201,7 +215,7 @@ function Login() {
             </p>
           </div>
           <div className="mt-8">
-          {loading ? (
+            {loading ? (
               <button
                 role="button"
                 aria-label="create my account"
@@ -212,7 +226,7 @@ function Login() {
                   height="40"
                   width="40"
                   ariaLabel="blocks-loading"
-                  wrapperStyle={{margin:"auto"}}
+                  wrapperStyle={{ margin: "auto" }}
                   wrapperClass="blocks-wrapper"
                   colors={[
                     "#e15b64",
@@ -234,7 +248,7 @@ function Login() {
               </button>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

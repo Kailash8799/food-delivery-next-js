@@ -5,19 +5,20 @@ import { toast } from "react-hot-toast";
 import { ColorRing } from "react-loader-spinner";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 function Signup() {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [loading, setloading] = useState(false);
-  const {data:session} = useSession()
-  const router = useRouter()
-  useEffect(()=>{
-    if(session && session?.user?.email){
-      router.push("/")
+  const { data: session } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (session && session?.user?.email) {
+      router.push("/");
     }
-  },[session,router])
+  }, [session, router]);
   const createUser = async () => {
     setloading(true);
     try {
@@ -54,7 +55,16 @@ function Signup() {
   return (
     <div className="w-full h-full bg-white sm:px-4 sm:py-16 dark:bg-black">
       <div className="flex flex-col items-center justify-center">
-        <div className="w-full p-10 rounded shadow bg-gradient-to-tl dark:from-slate-600 dark:to-black from-white to-slate-300 lg:w-1/3 md:w-1/2">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+          className="w-full p-10 rounded shadow bg-gradient-to-tl dark:from-slate-600 dark:to-black from-white to-slate-300 lg:w-1/3 md:w-1/2"
+        >
           <p
             tabIndex={0}
             aria-label="Login to your account"
@@ -210,7 +220,7 @@ function Signup() {
                   height="40"
                   width="40"
                   ariaLabel="blocks-loading"
-                  wrapperStyle={{margin:"auto"}}
+                  wrapperStyle={{ margin: "auto" }}
                   wrapperClass="blocks-wrapper"
                   colors={[
                     "#e15b64",
@@ -232,7 +242,7 @@ function Signup() {
               </button>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
