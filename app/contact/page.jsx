@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { ColorRing } from "react-loader-spinner";
+import { motion } from "framer-motion";
 
 export default function Contact() {
   const [name, setname] = useState("");
@@ -11,22 +12,22 @@ export default function Contact() {
   const [loading, setloading] = useState(false);
   const [mounted, setmounted] = useState(false);
   useEffect(() => {
-    setmounted(true)
-  }, [])
-  
-  const {data:session} = useSession()
-  const sendMessage = async()=>{
+    setmounted(true);
+  }, []);
+
+  const { data: session } = useSession();
+  const sendMessage = async () => {
     if (!mounted) return;
-    setloading(true)
+    setloading(true);
     try {
       const responce = await fetch(
         `${process.env.NEXT_PUBLIC_HOST}/api/contact`,
         {
           method: "POST",
           body: JSON.stringify({
-            name:name,
-            email:session?.user?.email,
-            message:message,
+            name: name,
+            email: session?.user?.email,
+            message: message,
             secret: `${process.env.NEXT_PUBLIC_SECRET}`,
           }),
           headers: {
@@ -37,23 +38,32 @@ export default function Contact() {
       const data = await responce.json();
       if (data.success) {
         toast.success(data.message);
-        setname("")
-        setemail("")
-        setmessage("")
+        setname("");
+        setemail("");
+        setmessage("");
       } else {
         toast.error(data.message);
       }
       setloading(false);
     } catch (error) {
-      toast.error("Some error accured")
-      setloading(false)
+      toast.error("Some error accured");
+      setloading(false);
     }
-  }
+  };
   return (
     <div className="min-h-screen">
       <section className="relative text-gray-600 body-font">
         <div className="container flex flex-wrap px-5 py-12 mx-auto sm:py-24 sm:flex-nowrap">
-          <div className="relative items-end justify-start w-full p-10 overflow-hidden bg-gray-300 rounded-lg sm:h-[500px] lg:w-2/3 md:w-1/2 sm:mr-10 h-72">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+            className="relative items-end justify-start w-full p-10 overflow-hidden bg-gray-300 rounded-lg sm:h-[500px] lg:w-2/3 md:w-1/2 sm:mr-10 h-72"
+          >
             <iframe
               width="100%"
               height="100%"
@@ -64,8 +74,17 @@ export default function Contact() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
-          </div>
-          <div className="w-full h-full mt-6 bg-white md:w-1/2 sm:mt-0 dark:bg-black">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+            className="w-full h-full mt-6 bg-white md:w-1/2 sm:mt-0 dark:bg-black"
+          >
             <div className="">
               <div className="w-full p-10 rounded shadow sm:p-4 md:p-10 bg-gradient-to-tl dark:from-slate-600 dark:to-black from-white to-slate-300">
                 <p
@@ -73,9 +92,9 @@ export default function Contact() {
                   aria-label="Login to your account"
                   className="text-2xl font-extrabold leading-6 text-gray-400 dark:text-gray-600"
                 >
-                  Contact 
+                  Contact
                 </p>
-               
+
                 <div className="flex items-center justify-between w-full py-5">
                   <hr className="w-full bg-gray-400" />
                 </div>
@@ -111,7 +130,7 @@ export default function Contact() {
                 </div>
                 <div className="w-full mt-6">
                   <label className="text-sm font-medium leading-none text-gray-800 dark:text-slate-300">
-                  Message
+                    Message
                   </label>
                   <div className="relative flex items-center justify-center">
                     <input
@@ -163,7 +182,7 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
