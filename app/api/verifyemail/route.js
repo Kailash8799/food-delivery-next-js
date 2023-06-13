@@ -55,7 +55,7 @@ export async function POST(req) {
     return NextResponse.json(
       {
         success: false,
-        message: "Some error accured",
+        message: "Some error accured or Invalid token",
       },
       { status: 500 }
     );
