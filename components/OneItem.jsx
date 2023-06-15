@@ -77,7 +77,7 @@ export default function OneItem() {
                 <h1>
                   <FaPlusCircle
                     size={25}
-                    onClick={() => {
+                    onClick={(e) => {
                       if (cartitem < 20) {
                         setcartitem(cartitem + 1);
                       } else {
