@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import TransitionEffect from "@/components/TransitionEffect";
 
 function Forgot() {
   const { data: session } = useSession();
@@ -14,6 +15,8 @@ function Forgot() {
     }
   }, [session, router]);
   return (
+    <>
+    <TransitionEffect />
     <div className="w-full h-full min-h-screen py-24 bg-white sm:px-4 dark:bg-black">
       <div className="flex flex-col items-center justify-center mt-10">
         <motion.div
@@ -75,6 +78,7 @@ function Forgot() {
         </motion.div>
       </div>
     </div>
+    </>
   );
 }
 

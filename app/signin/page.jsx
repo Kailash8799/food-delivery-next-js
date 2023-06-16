@@ -6,6 +6,7 @@ import { ColorRing } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
+import TransitionEffect from "@/components/TransitionEffect";
 
 function Login() {
   const [email, setemail] = useState("");
@@ -61,6 +62,8 @@ function Login() {
       });
   };
   return (
+    <>
+    <TransitionEffect />
     <div className="w-full h-full bg-white sm:px-4 sm:py-16 dark:bg-black">
       <div className="flex flex-col items-center justify-center">
         <motion.div
@@ -251,6 +254,7 @@ function Login() {
         </motion.div>
       </div>
     </div>
+    </>
   );
 }
 

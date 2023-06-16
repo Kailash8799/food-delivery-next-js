@@ -10,17 +10,11 @@ export default function OneItem() {
   return (
     <div>
       <motion.div
-        initial={{ opacity: 0, scale: 0.4 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.3,
-          ease: [0, 0.71, 0.2, 1.01],
-          scale: {
-            type: "spring",
-            damping: 5,
-            stiffness: 100,
-            restDelta: 0.001,
-          },
+        initial={{y:150,x:0}}
+        viewport={{ once: true }}
+        whileInView={{
+          y: 0,x:0,
+          transition: { duration: 1, ease: "easeInOut" },
         }}
         className="cursor-pointer group"
       >
@@ -43,10 +37,12 @@ export default function OneItem() {
           >
             {cartitem === 0 ? (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 40 }}
-                transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
+              initial={{y:40,x:0}}
+              viewport={{ once: true }}
+              whileInView={{
+                y: 0,x:0,
+                transition: { duration: 1, ease: "easeInOut" },
+              }}
               >
                 <h1
                   onClick={() => {
@@ -59,10 +55,11 @@ export default function OneItem() {
               </motion.div>
             ) : (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 40 }}
-                transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
+              initial={{y:40}}
+              whileInView={{
+                y: 0,
+                transition: { duration: 1, ease: "easeInOut" },
+              }}
                 className="flex items-center px-2 py-2 space-x-2 text-lg font-bold text-black dark:text-white"
               >
                 <h1>

@@ -6,6 +6,7 @@ import { ColorRing } from "react-loader-spinner";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import TransitionEffect from "@/components/TransitionEffect";
 
 function Signup() {
   const [name, setname] = useState("");
@@ -53,6 +54,8 @@ function Signup() {
     }
   };
   return (
+    <>
+    <TransitionEffect />
     <div className="w-full h-full bg-white sm:px-4 sm:py-16 dark:bg-black">
       <div className="flex flex-col items-center justify-center">
         <motion.div
@@ -245,6 +248,7 @@ function Signup() {
         </motion.div>
       </div>
     </div>
+    </>
   );
 }
 

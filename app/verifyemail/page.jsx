@@ -5,6 +5,7 @@ import { ColorRing } from "react-loader-spinner";
 import { toast } from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
+import TransitionEffect from "@/components/TransitionEffect";
 
 export default function Verifyemail() {
   const [loading, setloading] = useState(false);
@@ -59,6 +60,8 @@ export default function Verifyemail() {
     }
   };
   return (
+    <>
+    <TransitionEffect />
     <div className="w-full h-full min-h-screen bg-white py-28 sm:py-32 sm:px-4 dark:bg-black">
       <div className="flex flex-col items-center justify-center">
         <motion.div
@@ -120,5 +123,6 @@ export default function Verifyemail() {
         </motion.div>
       </div>
     </div>
+    </>
   );
 }

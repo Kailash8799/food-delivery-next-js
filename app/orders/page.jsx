@@ -1,7 +1,13 @@
-import React from 'react'
+"use client"
+import TransitionEffect from "@/components/TransitionEffect";
+import React from "react";
 
 export default function Orders() {
   return (
-    <div className='min-h-screen'>Orders</div>
-  )
+    <>
+      
+      <TransitionEffect />
+      <div className="min-h-screen">Orders</div>
+    </>
+  );
 }

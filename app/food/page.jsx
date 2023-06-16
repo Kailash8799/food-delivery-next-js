@@ -3,9 +3,12 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import OneItem from "@/components/OneItem";
+import TransitionEffect from "@/components/TransitionEffect";
 
 export default function Food() {
   return (
+    <>
+    <TransitionEffect />
     <div className="min-h-screen">
       <div className="grid grid-cols-1 gap-3 mx-5 my-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <OneItem/>
@@ -19,5 +22,6 @@ export default function Food() {
         <OneItem/>
       </div>
     </div>
+    </>
   );
 }

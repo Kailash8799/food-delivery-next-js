@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { ColorRing } from "react-loader-spinner";
 import { motion } from "framer-motion";
+import TransitionEffect from "@/components/TransitionEffect";
 
 export default function Contact() {
   const [name, setname] = useState("");
@@ -51,6 +52,9 @@ export default function Contact() {
     }
   };
   return (
+    <>
+    
+    <TransitionEffect />
     <div className="min-h-screen">
       <section className="relative text-gray-600 body-font">
         <div className="container flex flex-wrap px-5 py-12 mx-auto sm:py-24 sm:flex-nowrap">
@@ -186,5 +190,6 @@ export default function Contact() {
         </div>
       </section>
     </div>
+    </>
   );
 }
