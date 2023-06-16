@@ -8,3 +8,14 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    overflow-x: hidden;
+}
+
+.container {
+     -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+.container::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
