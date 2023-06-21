@@ -61,7 +61,7 @@ export default function Navbar({showmenu, setshowmenu}) {
                 Home
               </h1>
             </Link>
-            <Link href={"/food"}>
+            <Link href={"/food#items"}>
               <h1
                 className={`px-3 py-1 text-lg font-medium rounded-lg cursor-pointer hover:shadow-md hover:shadow-slate-600 ${
                   pathname === "/food" ? "shadow-md shadow-slate-600" : ""
@@ -136,7 +136,7 @@ export default function Navbar({showmenu, setshowmenu}) {
                   Home
                 </h1>
               </Link>
-              <Link href={"/food"}>
+              <Link href={"/food#items"}>
                 <h1
                   onClick={() => {
                     setshowmenu(false);
@@ -212,7 +212,7 @@ export default function Navbar({showmenu, setshowmenu}) {
                   Home
                 </h1>
               </Link>
-              <Link href={"/food"}>
+              <Link href={"/food#items"}>
                 <h1
                   onClick={() => {
                     setshowmenu(false);
