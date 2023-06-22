@@ -7,8 +7,6 @@ import SessionProviderComp from "@/components/SessionProviderComp";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import { useState } from "react";
-import { Provider } from "react-redux";
-import store from '@/redux/store'
 
 export default function RootLayout({ children }) {
   const [showmenu, setshowmenu] = useState(false);
@@ -24,7 +22,6 @@ export default function RootLayout({ children }) {
           setshowmenu(false);
         }}
       >
-        <Provider store={store}>
           <SessionProviderComp>
             <ThemeProvider enableSystem={true} attribute="class">
               <Pagewrapper>
@@ -35,7 +32,6 @@ export default function RootLayout({ children }) {
               </Pagewrapper>
             </ThemeProvider>
           </SessionProviderComp>
-        </Provider>
       </body>
     </html>
   );
