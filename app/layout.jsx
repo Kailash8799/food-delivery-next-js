@@ -3,10 +3,12 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/Navbar";
 import Pagewrapper from "./page-wrapper";
-import Provider from "@/components/Provider";
+import SessionProviderComp from "@/components/SessionProviderComp";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import { useState } from "react";
+import { Provider } from "react-redux";
+import store from '@/redux/store'
 
 export default function RootLayout({ children }) {
   const [showmenu, setshowmenu] = useState(false);
@@ -16,16 +18,23 @@ export default function RootLayout({ children }) {
         <title>Food delivery app</title>
         <meta name="description" content="Created by kailash rajput" />
       </head>
-      <body className="dark:bg-black" onClick={()=>{setshowmenu(false)}}>
-        <Provider>
-          <ThemeProvider enableSystem={true} attribute="class">
-            <Pagewrapper>
-              <Toaster />
-              <Navbar showmenu={showmenu} setshowmenu={setshowmenu}/>
-              {children}
-              <Footer />
-            </Pagewrapper>
-          </ThemeProvider>
+      <body
+        className="dark:bg-black"
+        onClick={() => {
+          setshowmenu(false);
+        }}
+      >
+        <Provider store={store}>
+          <SessionProviderComp>
+            <ThemeProvider enableSystem={true} attribute="class">
+              <Pagewrapper>
+                <Toaster />
+                <Navbar showmenu={showmenu} setshowmenu={setshowmenu} />
+                {children}
+                <Footer />
+              </Pagewrapper>
+            </ThemeProvider>
+          </SessionProviderComp>
         </Provider>
       </body>
     </html>
