@@ -7,6 +7,7 @@ import SessionProviderComp from "@/components/SessionProviderComp";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import { useState } from "react";
+import Statemanagement from "@/components/Statemanagement";
 
 export default function RootLayout({ children }) {
   const [showmenu, setshowmenu] = useState(false);
@@ -22,7 +23,8 @@ export default function RootLayout({ children }) {
           setshowmenu(false);
         }}
       >
-          <SessionProviderComp>
+        <SessionProviderComp>
+          <Statemanagement>
             <ThemeProvider enableSystem={true} attribute="class">
               <Pagewrapper>
                 <Toaster />
@@ -31,7 +33,8 @@ export default function RootLayout({ children }) {
                 <Footer />
               </Pagewrapper>
             </ThemeProvider>
-          </SessionProviderComp>
+          </Statemanagement>
+        </SessionProviderComp>
       </body>
     </html>
   );

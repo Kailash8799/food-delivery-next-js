@@ -1,12 +1,15 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import { Context } from "./Statemanagement";
 
 export default function OneItem() {
   const [cartitem, setcartitem] = useState(0);
+  const {addToCart} = useContext(Context)
+  let product = { slug:"sfjjd", price:100, itemname:"black", image:"asd" };
   return (
     <div>
       <motion.div
@@ -47,6 +50,7 @@ export default function OneItem() {
                 <h1
                   onClick={() => {
                     setcartitem(1);
+                    addToCart(product)
                   }}
                   className="px-4 py-2 text-lg font-bold text-black dark:text-white"
                 >
@@ -77,6 +81,7 @@ export default function OneItem() {
                     onClick={(e) => {
                       if (cartitem < 20) {
                         setcartitem(cartitem + 1);
+                        addToCart(product)
                       } else {
                         toast.error("You can't add more than 20 item");
                       }
