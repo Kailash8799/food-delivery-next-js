@@ -1,18 +1,22 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import OneItem from "@/components/OneItem";
 import TransitionEffect from "@/components/TransitionEffect";
 import Modal from "@/components/Modal";
 
 export default function Food() {
-  var item = {};
-  if (typeof window !== "undefined") {
-    item = localStorage.getItem("rescart");
-  }
-  console.log(item);
+  const [newItem,setnewItem] = useState({})
+  const [mounted,setMounted] = useState(false)
+  useEffect(()=>{
+    setMounted(true)
+    if (typeof window !== "undefined") {
+      let item = localStorage.getItem("rescart");
+      let itm = JSON.parse(item) || {};
+      setnewItem(itm)
+    }
+  },[])
   const [modal, setModal] = React.useState(false);
   const [modaltime, setModaltime] = React.useState(false);
-  let newItem = JSON.parse(item) || {};
   const productarray = [
     { slug: "sfjjd", price: 100, itemname: "Tea Post", image: "/tea.avif" },
     { slug: "sfvjjd", price: 200, itemname: "black", image: "/roti.avif" },
@@ -21,6 +25,7 @@ export default function Food() {
     { slug: "sfjqjd", price: 290, itemname: "black", image: "/sandwich.avif" },
     { slug: "sffbjjd", price: 430, itemname: "black", image: "/tea.avif" },
   ];
+  if(!mounted) return;
   return (
     <>
       <TransitionEffect />
