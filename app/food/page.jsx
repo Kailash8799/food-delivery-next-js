@@ -5,7 +5,10 @@ import TransitionEffect from "@/components/TransitionEffect";
 import Modal from "@/components/Modal";
 
 export default function Food() {
-  let item = localStorage.getItem("rescart");
+  let item = {}
+  if (typeof window !== "undefined") {
+     item = localStorage.getItem("rescart");
+  }
   const [modal, setModal] = React.useState(false);
   const [modaltime, setModaltime] = React.useState(false);
   let newItem = JSON.parse(item) || {};
@@ -16,19 +19,18 @@ export default function Food() {
     { slug: "sfjgjd", price: 250, itemname: "black", image: "/tea.avif" },
     { slug: "sfjqjd", price: 290, itemname: "black", image: "/sandwich.avif" },
     { slug: "sffbjjd", price: 430, itemname: "black", image: "/tea.avif" },
-    
   ];
   return (
     <>
       <TransitionEffect />
-     {modaltime && <Modal {...{ modal, setModal,modaltime,setModaltime }} />}
+      {modaltime && <Modal {...{ modal, setModal, modaltime, setModaltime }} />}
       <div className="min-h-screen" id="items">
         <div className="grid grid-cols-1 gap-3 mx-5 my-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {productarray.map((itm) => {
             return (
               <OneItem
                 key={itm?.slug}
-                modal={modal} 
+                modal={modal}
                 setModal={setModal}
                 modaltime={modaltime}
                 setModaltime={setModaltime}
