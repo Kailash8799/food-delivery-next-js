@@ -6,22 +6,38 @@ import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { Context } from "./Statemanagement";
 
-export default function OneItem({itemcon,product,modal,setModal,modaltime,setModaltime}) {
+export default function OneItem({
+  itemcon,
+  product,
+  modal,
+  setModal,
+  modaltime,
+  setModaltime,
+  prodmodaldetails,
+  setprodmodaldetails,
+}) {
   const [cartitem, setcartitem] = useState(itemcon || 0);
-  const {addToCart,dcrToCart} = useContext(Context)
+  const { addToCart, dcrToCart } = useContext(Context);
   return (
     <div>
       <motion.div
-        initial={{y:150,x:0}}
+        initial={{ y: 150, x: 0 }}
         viewport={{ once: true }}
         whileInView={{
-          y: 0,x:0,
+          y: 0,
+          x: 0,
           transition: { duration: 1, ease: "easeInOut" },
         }}
         className="cursor-pointer group"
-        onClick={()=>{
-          setModal(!modal)
-          setModaltime(!modaltime)
+        onClick={() => {
+          setprodmodaldetails({
+            slug: product?.slug,
+            price: product?.price,
+            itemname: product?.itemname,
+            image: product?.image,
+          })
+          setModal(!modal);
+          setModaltime(!modaltime);
         }}
       >
         <div className="relative flex flex-col w-full gap-2">
@@ -35,7 +51,9 @@ export default function OneItem({itemcon,product,modal,setModal,modaltime,setMod
             />
           </div>
           <div
-            onClick={(e)=>{e.stopPropagation()}}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
             className={`absolute  bg-white bottom-20 ${
               cartitem > 0
                 ? `${cartitem > 9 ? "left-[38%]" : "left-[40%]"}`
@@ -44,17 +62,18 @@ export default function OneItem({itemcon,product,modal,setModal,modaltime,setMod
           >
             {cartitem === 0 ? (
               <motion.div
-              initial={{y:40,x:0}}
-              viewport={{ once: true }}
-              whileInView={{
-                y: 0,x:0,
-                transition: { duration: 1, ease: "easeInOut" },
-              }}
+                initial={{ y: 40, x: 0 }}
+                viewport={{ once: true }}
+                whileInView={{
+                  y: 0,
+                  x: 0,
+                  transition: { duration: 1, ease: "easeInOut" },
+                }}
               >
                 <h1
                   onClick={() => {
                     setcartitem(1);
-                    addToCart(product)
+                    addToCart(product);
                   }}
                   className="px-4 py-2 text-lg font-bold text-black dark:text-white"
                 >
@@ -63,18 +82,18 @@ export default function OneItem({itemcon,product,modal,setModal,modaltime,setMod
               </motion.div>
             ) : (
               <motion.div
-              initial={{y:40}}
-              whileInView={{
-                y: 0,
-                transition: { duration: 1, ease: "easeInOut" },
-              }}
+                initial={{ y: 40 }}
+                whileInView={{
+                  y: 0,
+                  transition: { duration: 1, ease: "easeInOut" },
+                }}
                 className="flex items-center px-2 py-2 space-x-2 text-lg font-bold text-black dark:text-white"
               >
                 <h1>
                   <FaMinusCircle
                     onClick={() => {
                       setcartitem(cartitem - 1);
-                      dcrToCart(product.slug)
+                      dcrToCart(product.slug);
                     }}
                     size={25}
                   />
@@ -86,7 +105,7 @@ export default function OneItem({itemcon,product,modal,setModal,modaltime,setMod
                     onClick={(e) => {
                       if (cartitem < 20) {
                         setcartitem(cartitem + 1);
-                        addToCart(product)
+                        addToCart(product);
                       } else {
                         toast.error("You can't add more than 20 item");
                       }

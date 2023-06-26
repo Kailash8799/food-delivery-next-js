@@ -5,18 +5,24 @@ import TransitionEffect from "@/components/TransitionEffect";
 import Modal from "@/components/Modal";
 
 export default function Food() {
-  const [newItem,setnewItem] = useState({})
-  const [mounted,setMounted] = useState(false)
-  useEffect(()=>{
-    setMounted(true)
+  const [newItem, setnewItem] = useState({});
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
     if (typeof window !== "undefined") {
       let item = localStorage.getItem("rescart");
       let itm = JSON.parse(item) || {};
-      setnewItem(itm)
+      setnewItem(itm);
     }
-  },[])
+  }, []);
   const [modal, setModal] = React.useState(false);
   const [modaltime, setModaltime] = React.useState(false);
+  const [prodmodaldetails, setprodmodaldetails] = useState({
+    slug: "",
+    price: 0,
+    itemname: "",
+    image: "",
+  });
   const productarray = [
     { slug: "sfjjd", price: 100, itemname: "Tea Post", image: "/tea.avif" },
     { slug: "sfvjjd", price: 200, itemname: "black", image: "/roti.avif" },
@@ -25,11 +31,22 @@ export default function Food() {
     { slug: "sfjqjd", price: 290, itemname: "black", image: "/sandwich.avif" },
     { slug: "sffbjjd", price: 430, itemname: "black", image: "/tea.avif" },
   ];
-  if(!mounted) return;
+  if (!mounted) return;
   return (
     <>
       <TransitionEffect />
-      {modaltime && <Modal {...{ modal, setModal, modaltime, setModaltime }} />}
+      {modaltime && (
+        <Modal
+          {...{
+            modal,
+            setModal,
+            modaltime,
+            setModaltime,
+            prodmodaldetails,
+            setprodmodaldetails,
+          }}
+        />
+      )}
       <div className="min-h-screen" id="items">
         <div className="grid grid-cols-1 gap-3 mx-5 my-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {productarray.map((itm) => {
@@ -40,6 +57,8 @@ export default function Food() {
                 setModal={setModal}
                 modaltime={modaltime}
                 setModaltime={setModaltime}
+                prodmodaldetails={prodmodaldetails}
+                setprodmodaldetails={setprodmodaldetails}
                 itemcon={itm?.slug in newItem ? newItem[itm?.slug].qty : 0}
                 product={{
                   slug: itm?.slug,
