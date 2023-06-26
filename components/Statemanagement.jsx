@@ -17,7 +17,20 @@ const Statemanagement = ({ children }) => {
     }
     localStorage.setItem("rescart", JSON.stringify(newCart));
   };
-  return <Context.Provider value={{addToCart}}>{children}</Context.Provider>;
+  const dcrToCart = (slug)=>{
+    let cartItem = localStorage.getItem("rescart");
+    let newCart = JSON.parse(cartItem) || {};
+    if (slug in newCart) {
+      if(newCart[slug].qty <= 1){
+        delete newCart[slug]
+        localStorage.setItem("rescart", JSON.stringify(newCart));
+        return;
+      }
+      newCart[slug].qty = newCart[slug].qty - 1;
+    }
+    localStorage.setItem("rescart", JSON.stringify(newCart));
+  }
+  return <Context.Provider value={{addToCart,dcrToCart}}>{children}</Context.Provider>;
 };
 
 export default Statemanagement;

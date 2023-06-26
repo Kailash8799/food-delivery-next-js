@@ -1,27 +1,41 @@
 "use client";
-import Image from "next/image";
 import React from "react";
-import { motion } from "framer-motion";
 import OneItem from "@/components/OneItem";
 import TransitionEffect from "@/components/TransitionEffect";
 
 export default function Food() {
+  let item = localStorage.getItem("rescart");
+  let newItem = JSON.parse(item) || {};
+  const productarray = [
+    { slug: "sfjjd", price: 100, itemname: "Tea Post", image: "/tea.avif" },
+    { slug: "sfvjjd", price: 200, itemname: "black", image: "/roti.avif" },
+    { slug: "snfjjd", price: 140, itemname: "black", image: "/dhosa.avif" },
+    { slug: "sfjgjd", price: 250, itemname: "black", image: "/tea.avif" },
+    { slug: "sfjqjd", price: 290, itemname: "black", image: "/sandwich.avif" },
+    { slug: "sffbjjd", price: 430, itemname: "black", image: "/tea.avif" },
+    
+  ];
   return (
     <>
-    <TransitionEffect />
-    <div className="min-h-screen" id="items">
-      <div className="grid grid-cols-1 gap-3 mx-5 my-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <OneItem/>
-        <OneItem/>
-        <OneItem/>
-        <OneItem/>
-        <OneItem/>
-        <OneItem/>
-        <OneItem/>
-        <OneItem/>
-        <OneItem/>
+      <TransitionEffect />
+      <div className="min-h-screen" id="items">
+        <div className="grid grid-cols-1 gap-3 mx-5 my-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {productarray.map((itm) => {
+            return (
+              <OneItem
+                key={itm?.slug}
+                itemcon={itm?.slug in newItem ? newItem[itm?.slug].qty : 0}
+                product={{
+                  slug: itm?.slug,
+                  price: itm?.price,
+                  itemname: itm?.itemname,
+                  image: itm?.image,
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
     </>
   );
 }

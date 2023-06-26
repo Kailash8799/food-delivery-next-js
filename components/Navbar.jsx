@@ -7,11 +7,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import Cart from "./Cart";
 
 export default function Navbar({showmenu, setshowmenu}) {
   const { systemTheme, theme, setTheme } = useTheme();
   const [themes, setThemes] = useState("dark");
   const [isLogin, setisLogin] = useState(false);
+  const [cartshow,setcartshow] = useState(false)
   const ref = useRef(null);
   const { data: session } = useSession();
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function Navbar({showmenu, setshowmenu}) {
         onClick={() => {
           setshowmenu(false);
         }}
-        className="p-3.5 z-40 bg-white dark:bg-black border-b-[1px] dark:border-slate-800 border-slate-300"
+        className="p-3.5 z-40 bg-white dark:bg-black border-b-[1px] dark:border-slate-800 border-slate-300 static"
       >
         <div className="flex justify-between">
           <div>
@@ -100,7 +102,7 @@ export default function Navbar({showmenu, setshowmenu}) {
               </div>
             )}
             <div className="relative cursor-pointer ">
-              <FaShoppingCart size={25} onClick={showmenuUser} />
+              <FaShoppingCart size={25} onClick={()=>{setcartshow(!cartshow)}} />
             </div>
             <div className="relative cursor-pointer ">
               <FaUserCircle
@@ -113,6 +115,7 @@ export default function Navbar({showmenu, setshowmenu}) {
             </div>
           </div>
         </div>
+        {cartshow && <Cart setcartshow={setcartshow}/>}
       </div>
       {showmenu && !isLogin && (
         <motion.div
@@ -275,6 +278,7 @@ export default function Navbar({showmenu, setshowmenu}) {
           </div>
         </motion.div>
       )}
+     
     </div>
   );
 }

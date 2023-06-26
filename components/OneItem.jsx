@@ -6,10 +6,9 @@ import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { Context } from "./Statemanagement";
 
-export default function OneItem() {
-  const [cartitem, setcartitem] = useState(0);
-  const {addToCart} = useContext(Context)
-  let product = { slug:"sfjjd", price:100, itemname:"black", image:"asd" };
+export default function OneItem({itemcon,product}) {
+  const [cartitem, setcartitem] = useState(itemcon || 0);
+  const {addToCart,dcrToCart} = useContext(Context)
   return (
     <div>
       <motion.div
@@ -25,9 +24,9 @@ export default function OneItem() {
           <div className="relative w-full overflow-hidden aspect-square rounded-xl">
             <Image
               fill
-              src="/tea.avif"
+              src={product?.image}
               className="w-full h-full transition hover:scale-105"
-              alt=""
+              alt={`${product?.itemname} image`}
               srcSet=""
             />
           </div>
@@ -70,6 +69,7 @@ export default function OneItem() {
                   <FaMinusCircle
                     onClick={() => {
                       setcartitem(cartitem - 1);
+                      dcrToCart(product.slug)
                     }}
                     size={25}
                   />
@@ -93,10 +93,10 @@ export default function OneItem() {
           </div>
           <div className="px-2">
             <h1 className="text-xl font-semibold text-black dark:text-white">
-              Tea Post
+              {product?.itemname}
             </h1>
             <h1 className="text-xl font-normal text-black dark:text-white">
-              ₹30 for one
+              ₹{product?.price} for one
             </h1>
           </div>
         </div>
