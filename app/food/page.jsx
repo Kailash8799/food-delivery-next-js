@@ -5,10 +5,11 @@ import TransitionEffect from "@/components/TransitionEffect";
 import Modal from "@/components/Modal";
 
 export default function Food() {
-  let item = {}
+  var item = {};
   if (typeof window !== "undefined") {
-     item = localStorage.getItem("rescart");
+    item = localStorage.getItem("rescart");
   }
+  console.log(item);
   const [modal, setModal] = React.useState(false);
   const [modaltime, setModaltime] = React.useState(false);
   let newItem = JSON.parse(item) || {};
