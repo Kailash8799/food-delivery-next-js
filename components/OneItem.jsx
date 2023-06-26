@@ -6,7 +6,7 @@ import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { Context } from "./Statemanagement";
 
-export default function OneItem({itemcon,product}) {
+export default function OneItem({itemcon,product,modal,setModal,modaltime,setModaltime}) {
   const [cartitem, setcartitem] = useState(itemcon || 0);
   const {addToCart,dcrToCart} = useContext(Context)
   return (
@@ -19,6 +19,10 @@ export default function OneItem({itemcon,product}) {
           transition: { duration: 1, ease: "easeInOut" },
         }}
         className="cursor-pointer group"
+        onClick={()=>{
+          setModal(!modal)
+          setModaltime(!modaltime)
+        }}
       >
         <div className="relative flex flex-col w-full gap-2">
           <div className="relative w-full overflow-hidden aspect-square rounded-xl">
@@ -31,6 +35,7 @@ export default function OneItem({itemcon,product}) {
             />
           </div>
           <div
+            onClick={(e)=>{e.stopPropagation()}}
             className={`absolute  bg-white bottom-20 ${
               cartitem > 0
                 ? `${cartitem > 9 ? "left-[38%]" : "left-[40%]"}`

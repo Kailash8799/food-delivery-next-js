@@ -9,11 +9,12 @@ import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import Cart from "./Cart";
 
-export default function Navbar({showmenu, setshowmenu}) {
+export default function Navbar({ showmenu, setshowmenu }) {
   const { systemTheme, theme, setTheme } = useTheme();
   const [themes, setThemes] = useState("dark");
   const [isLogin, setisLogin] = useState(false);
-  const [cartshow,setcartshow] = useState(false)
+  const [cartshow, setcartshow] = useState(false);
+  const [cartshowtime, setcartshowtime] = useState(false);
   const ref = useRef(null);
   const { data: session } = useSession();
   useEffect(() => {
@@ -102,20 +103,28 @@ export default function Navbar({showmenu, setshowmenu}) {
               </div>
             )}
             <div className="relative cursor-pointer ">
-              <FaShoppingCart size={25} onClick={()=>{setcartshow(!cartshow)}} />
+              <FaShoppingCart
+                size={25}
+                onClick={() => {
+                  setcartshow(!cartshow);
+                  setcartshowtime(!cartshowtime)
+                }}
+              />
             </div>
             <div className="relative cursor-pointer ">
               <FaUserCircle
                 size={25}
                 onClick={(e) => {
-                  e.stopPropagation()
+                  e.stopPropagation();
                   showmenuUser();
                 }}
               />
             </div>
           </div>
         </div>
-        {cartshow && <Cart setcartshow={setcartshow}/>}
+        {cartshowtime && (
+          <Cart {...{ cartshow, setcartshowtime,cartshowtime, setcartshow }} />
+        )}
       </div>
       {showmenu && !isLogin && (
         <motion.div
@@ -278,7 +287,6 @@ export default function Navbar({showmenu, setshowmenu}) {
           </div>
         </motion.div>
       )}
-     
     </div>
   );
 }
