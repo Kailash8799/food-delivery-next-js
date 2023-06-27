@@ -7,6 +7,6 @@ const ContactSchema = new mongoose.Schema({
     message:{type: String, required: true},
     responce:{type: String,default:""},
     seanbydev:{type:Boolean,default:false},
-},{timeseries:true})
+},{timestamps:true})
 
 export default mongoose.models.Contact || mongoose.model("Contact",ContactSchema)

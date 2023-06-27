@@ -265,6 +265,16 @@ export default function Navbar({ showmenu, setshowmenu }) {
                 Profile
               </h1>
             </Link>
+           {session?.user?.email === "kailashrajput8799@gmail.com" && <Link href={"/dashboard"}>
+              <h1
+                onClick={() => {
+                  setshowmenu(false);
+                }}
+                className="px-3 py-1 my-1 text-lg font-bold text-black rounded-lg cursor-pointer dark:text-white hover:shadow-md hover:shadow-slate-600"
+              >
+                Dashboard
+              </h1>
+            </Link>}
             <Link href={"/orders"}>
               <h1
                 onClick={() => {

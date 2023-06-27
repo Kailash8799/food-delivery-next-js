@@ -1,29 +1,13 @@
 import {  NextResponse } from "next/server";
 import dbConnect from "@/database/_dbconnect";
-import User from "@/models/User";
-import bcrypt from 'bcrypt';
+import Product from "@/models/Product";
 
 export async function POST(req) {
   await dbConnect();
-  const body = await req.json();
-  if (body?.email && body?.password) {
-    const u = await User.findOne({ email: body?.email });
-    if (u) {
-      return NextResponse.json({
-        success: false,
-        message: "User already exits",
-      },{status:400});
-    }
-    const hashPassword = await bcrypt.hash(body?.password,12);
-    await User.create({name:body?.name,email:body?.email,password:hashPassword})
+    const food = await Product.find();
     return NextResponse.json({
       success: true,
-      message: "Account has been created successfully",
+      message: "Food items",
+      product:food
     },{status:200});
-  } else {
-    return NextResponse.json({
-      success: false,
-      message: "Please check the email and password",
-    },{status:500});
-  }
 }

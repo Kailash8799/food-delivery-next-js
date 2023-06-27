@@ -62,7 +62,7 @@ export default function Cart({
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
               className="container fixed top-0 right-0 w-full h-screen max-w-md overflow-y-auto text-white shadow-lg bg-gradient-to-br from-slate-500 to-white dark:from-black dark:to-slate-600"
             >
-              <div className="sticky top-0 z-50 flex items-center justify-between p-5 border-b bg-gradient-to-br from-slate-500 to-white dark:from-black dark:to-slate-600">
+              <div className="sticky top-0 z-50 flex items-center justify-between p-5 border-b border-slate-600 bg-gradient-to-br from-slate-500 to-white dark:from-black dark:to-slate-600">
                 <div>
                   <h1 className="text-xl font-bold text-black dark:text-white">
                     Shopping cart
@@ -102,10 +102,10 @@ export default function Cart({
                         </div>
                         <div className="w-1/2 my-3">
                           <div>
-                            <h1 className="text-lg font-bold">
+                            <h1 className="text-lg font-bold text-black dark:text-white">
                               {newItem[item]?.itemname}
                             </h1>
-                            <h1 className="text-lg font-bold">
+                            <h1 className="text-lg font-bold text-black dark:text-white">
                               qty : {newItem[item]?.qty}
                             </h1>
                           </div>
