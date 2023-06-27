@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 import { useTheme } from "next-themes";
 import { VscChromeClose } from "react-icons/vsc";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { Context } from "./Statemanagement";
 
 export default function Cart({
   cartshow = false,
@@ -19,6 +22,19 @@ export default function Cart({
       if (window.document) document.body.style.overflowY = "scroll";
     };
   }, []);
+  const [newItem, setnewItem] = useState({});
+  const [mounted, setMounted] = useState(false);
+  const { clearCart } = useContext(Context);
+  const router = useRouter();
+  useEffect(() => {
+    setMounted(true);
+    if (typeof window !== "undefined") {
+      let item = localStorage.getItem("rescart");
+      let itm = JSON.parse(item) || {};
+      setnewItem(itm);
+    }
+  }, []);
+  if (!mounted) return;
   return (
     <div
       onClick={() => {
@@ -44,9 +60,9 @@ export default function Cart({
                 e.stopPropagation();
               }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              className="fixed top-0 right-0 w-full h-screen max-w-md text-white shadow-lg bg-gradient-to-br from-slate-500 to-white dark:from-black dark:to-slate-600"
+              className="container fixed top-0 right-0 w-full h-screen max-w-md overflow-y-auto text-white shadow-lg bg-gradient-to-br from-slate-500 to-white dark:from-black dark:to-slate-600"
             >
-              <div className="flex items-center justify-between p-5">
+              <div className="sticky top-0 z-50 flex items-center justify-between p-5 border-b bg-gradient-to-br from-slate-500 to-white dark:from-black dark:to-slate-600">
                 <div>
                   <h1 className="text-xl font-bold text-black dark:text-white">
                     Shopping cart
@@ -63,20 +79,86 @@ export default function Cart({
                 >
                   {theme === "dark" ? (
                     <VscChromeClose size={24} />
-                    ) : (
-                    <IoMdClose size={28} color="black"/>
+                  ) : (
+                    <IoMdClose size={28} color="black" />
                   )}
                 </div>
               </div>
-              <hr className="" />
-              <div className="p-5">
-                <h2 className="text-4xl leading-loose capitalize">hello!</h2>
-                <p className="leading-relaxed">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industrys
-                  standard dummy text ever since the 1500s.
-                </p>
-              </div>
+              {Object.keys(newItem).length !== 0 ? (
+                <div className="p-5">
+                  {Object.keys(newItem).map((item) => {
+                    return (
+                      <div key={item} className="flex space-x-3">
+                        <div className="relative flex flex-col w-1/2 gap-2 my-2 md:w-1/2">
+                          <div className="relative w-full overflow-hidden aspect-square rounded-xl">
+                            <Image
+                              fill
+                              src={newItem[item]?.image}
+                              className="transition hover:scale-105"
+                              alt={`image`}
+                              srcSet=""
+                            />
+                          </div>
+                        </div>
+                        <div className="w-1/2 my-3">
+                          <div>
+                            <h1 className="text-lg font-bold">
+                              {newItem[item]?.itemname}
+                            </h1>
+                            <h1 className="text-lg font-bold">
+                              qty : {newItem[item]?.qty}
+                            </h1>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <div className="flex mt-5 space-x-3">
+                    <h1
+                      onClick={() => {
+                        router.push("/checkout");
+                        setcartshow((cartshow) => !cartshow);
+                        setTimeout(() => {
+                          setcartshowtime(!cartshowtime);
+                        }, 200);
+                      }}
+                      className="px-3 py-2 font-bold text-black rounded-lg cursor-pointer dark:text-white bg-gradient-to-bl from-pink-500 to-purple-500"
+                    >
+                      Checkout
+                    </h1>
+                    <h1
+                    onClick={() => {
+                        clearCart()
+                        router.push("/");
+                        setcartshow((cartshow) => !cartshow);
+                        setTimeout(() => {
+                          setcartshowtime(!cartshowtime);
+                        }, 200);
+                      }}
+                    className="px-3 py-2 font-bold text-black rounded-lg cursor-pointer dark:text-white bg-gradient-to-bl from-pink-500 to-purple-500">
+                      Clear
+                    </h1>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-5 space-y-3">
+                  <h1 className="text-xl font-bold text-black dark:text-white">
+                    Cart is empty
+                  </h1>
+                  <h1
+                    onClick={() => {
+                      router.push("/food#items");
+                      setcartshow((cartshow) => !cartshow);
+                      setTimeout(() => {
+                        setcartshowtime(!cartshowtime);
+                      }, 200);
+                    }}
+                    className="inline-block px-3 py-2 text-lg text-black border rounded-lg cursor-pointer dark:text-white"
+                  >
+                    Continue to Shopping
+                  </h1>
+                </div>
+              )}
             </motion.div>
           </>
         )}

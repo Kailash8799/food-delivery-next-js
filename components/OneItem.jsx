@@ -35,6 +35,9 @@ export default function OneItem({
             price: product?.price,
             itemname: product?.itemname,
             image: product?.image,
+            desc: product?.desc,
+            cartitem:cartitem,
+            product:product
           })
           setModal(!modal);
           setModaltime(!modaltime);

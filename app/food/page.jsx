@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import OneItem from "@/components/OneItem";
 import TransitionEffect from "@/components/TransitionEffect";
 import Modal from "@/components/Modal";
+import { useRouter } from "next/navigation";
 
 export default function Food() {
   const [newItem, setnewItem] = useState({});
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     setMounted(true);
     if (typeof window !== "undefined") {
@@ -14,7 +16,7 @@ export default function Food() {
       let itm = JSON.parse(item) || {};
       setnewItem(itm);
     }
-  }, []);
+  }, [router]);
   const [modal, setModal] = React.useState(false);
   const [modaltime, setModaltime] = React.useState(false);
   const [prodmodaldetails, setprodmodaldetails] = useState({
@@ -22,14 +24,17 @@ export default function Food() {
     price: 0,
     itemname: "",
     image: "",
+    desc:"",
+    cartitem:0,
+    product:{}
   });
   const productarray = [
-    { slug: "sfjjd", price: 100, itemname: "Tea Post", image: "/tea.avif" },
-    { slug: "sfvjjd", price: 200, itemname: "black", image: "/roti.avif" },
-    { slug: "snfjjd", price: 140, itemname: "black", image: "/dhosa.avif" },
-    { slug: "sfjgjd", price: 250, itemname: "black", image: "/tea.avif" },
-    { slug: "sfjqjd", price: 290, itemname: "black", image: "/sandwich.avif" },
-    { slug: "sffbjjd", price: 430, itemname: "black", image: "/tea.avif" },
+    { slug: "sfjjd", price: 100, itemname: "Tea Post", image: "/tea.avif",desc:"This is a tea product u can order from our restoorent anu time" },
+    { slug: "sfvjjd", price: 200, itemname: "black", image: "/roti.avif",desc:"shdf" },
+    { slug: "snfjjd", price: 140, itemname: "black", image: "/dhosa.avif",desc:"shdf"},
+    { slug: "sfjgjd", price: 250, itemname: "black", image: "/tea.avif",desc:"shdf" },
+    { slug: "sfjqjd", price: 290, itemname: "black", image: "/sandwich.avif",desc:"shdf" },
+    { slug: "sffbjjd", price: 430, itemname: "black", image: "/tea.avif",desc:"shdf" },
   ];
   if (!mounted) return;
   return (
@@ -65,6 +70,7 @@ export default function Food() {
                   price: itm?.price,
                   itemname: itm?.itemname,
                   image: itm?.image,
+                  desc: itm?.desc,
                 }}
               />
             );

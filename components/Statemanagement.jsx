@@ -42,8 +42,14 @@ const Statemanagement = ({ children }) => {
       localStorage.setItem("rescart", JSON.stringify(newCart));
     }
   };
+  const clearCart = () => {
+    let newCart = {};
+    if (typeof window !== "undefined") {
+      localStorage.setItem("rescart", JSON.stringify(newCart));
+    }
+  };
   return (
-    <Context.Provider value={{ addToCart, dcrToCart }}>
+    <Context.Provider value={{ addToCart, dcrToCart, clearCart }}>
       {children}
     </Context.Provider>
   );
