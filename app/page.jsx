@@ -120,6 +120,7 @@ export default function Home() {
                   className="w-full h-full transition hover:scale-105"
                   alt=""
                   srcSet=""
+                  loading="lazy"
                 />
               </div>
               <div className="px-2">
@@ -155,6 +156,7 @@ export default function Home() {
                   className="w-full h-full transition hover:scale-105"
                   alt=""
                   srcSet=""
+                  loading="lazy"
                 />
               </div>
               <div className="px-2">
@@ -190,6 +192,7 @@ export default function Home() {
                   className="w-full h-full transition hover:scale-105"
                   alt=""
                   srcSet=""
+                  loading="lazy"
                 />
               </div>
               <div className="px-2">
@@ -221,10 +224,12 @@ export default function Home() {
               <div className="relative w-full overflow-hidden aspect-square rounded-xl">
                 <Image
                   src="/dhosa.avif"
+                  loading="lazy"
                   fill
                   className="w-full h-full transition hover:scale-105"
                   alt=""
                   srcSet=""
+                  
                 />
               </div>
               <div className="px-2">

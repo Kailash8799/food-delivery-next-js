@@ -51,6 +51,7 @@ export default function OneItem({
               className="w-full h-full transition hover:scale-105"
               alt={`${product?.itemname} image`}
               srcSet=""
+              loading="lazy"
             />
           </div>
           <div

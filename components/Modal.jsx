@@ -120,6 +120,7 @@ export default function Modal({
                         className="transition hover:scale-105"
                         alt={`${prodmodaldetails?.itemname} image`}
                         srcSet=""
+                        loading="lazy"
                       />
                     </div>
                   </div>

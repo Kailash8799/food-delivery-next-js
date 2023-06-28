@@ -97,6 +97,7 @@ export default function Cart({
                               className="transition hover:scale-105"
                               alt={`image`}
                               srcSet=""
+                              loading="lazy"
                             />
                           </div>
                         </div>

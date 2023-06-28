@@ -103,7 +103,7 @@ export default function Food() {
         )
       ) : (
         <div className="items-center justify-center min-h-screen text-center">
-          <div className="items-center justify-center inline-block mx-auto mt-[20%]">
+          <div className="items-center justify-center inline-block mx-auto mt-[40%] lg:mt-[20%]">
             <BallTriangle
               height={100}
               width={100}
