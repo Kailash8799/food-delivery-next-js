@@ -1,29 +1,44 @@
-import {  NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import dbConnect from "@/database/_dbconnect";
-import User from "@/models/User";
-import bcrypt from 'bcrypt';
+import Order from "@/models/Order";
 
 export async function POST(req) {
   await dbConnect();
   const body = await req.json();
-  if (body?.email && body?.password) {
-    const u = await User.findOne({ email: body?.email });
-    if (u) {
-      return NextResponse.json({
-        success: false,
-        message: "User already exits",
-      },{status:400});
+  try {
+    if (body?.email) {
+      await Order.create({
+        email: body?.email,
+        name: body?.name,
+        phone: body?.phone,
+        orderId: "1234543234566543",
+        products: body?.newItem,
+        address: body?.address,
+        amount: 10,
+      });
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Ordered successfully",
+        },
+        { status: 200 }
+      );
+    } else {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Some error accured",
+        },
+        { status: 500 }
+      );
     }
-    const hashPassword = await bcrypt.hash(body?.password,12);
-    await User.create({name:body?.name,email:body?.email,password:hashPassword})
-    return NextResponse.json({
-      success: true,
-      message: "Account has been created successfully",
-    },{status:200});
-  } else {
-    return NextResponse.json({
-      success: false,
-      message: "Please check the email and password",
-    },{status:500});
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Some error accured",
+      },
+      { status: 500 }
+    );
   }
 }
