@@ -1,25 +1,25 @@
 "use client";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const Context = createContext(null);
 
 const Statemanagement = ({ children }) => {
+  const [subtotal,setsubtotal] = useState(0)
   const addToCart = (product) => {
-    let cartItem
-    if (typeof window !== 'undefined') {
-    cartItem = localStorage.getItem("rescart");
+    let cartItem;
+    if (typeof window !== "undefined") {
+      cartItem = localStorage.getItem("rescart");
     }
     let { slug, price, itemname, image } = product;
+    setsubtotal(subtotal+ Number(price));
     let newCart = JSON.parse(cartItem) || {};
-    console.log(slug);
-    console.log(newCart);
     if (slug in newCart) {
       newCart[slug].qty = newCart[slug].qty + 1;
     } else {
       newCart[slug] = { qty: 1, price, itemname, image };
     }
-    if (typeof window !== 'undefined') {
-    localStorage.setItem("rescart", JSON.stringify(newCart));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("rescart", JSON.stringify(newCart));
     }
   };
   const dcrToCart = (slug) => {
@@ -49,7 +49,7 @@ const Statemanagement = ({ children }) => {
     }
   };
   return (
-    <Context.Provider value={{ addToCart, dcrToCart, clearCart }}>
+    <Context.Provider value={{ addToCart, dcrToCart, clearCart,subtotal }}>
       {children}
     </Context.Provider>
   );

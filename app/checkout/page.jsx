@@ -29,7 +29,9 @@ const Checkout = () => {
   }, []);
   const [newItem, setnewItem] = useState({});
   const { clearCart } = useContext(Context);
-  const { addToCart, dcrToCart } = useContext(Context);
+  const { addToCart, dcrToCart ,subtotal} = useContext(Context);
+  console.log(subtotal);
+  console.log("HEllo");
   const router = useRouter();
   useEffect(() => {
     setMounted(true);
