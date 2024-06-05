@@ -38,7 +38,9 @@ function Signup() {
           },
         }
       );
+      console.log(responce);
       const data = await responce.json();
+      console.log(data);
       if (data.success) {
         toast.success(data.message);
         setname("");

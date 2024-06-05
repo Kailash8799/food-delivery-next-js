@@ -6,36 +6,37 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 
 export async function POST(req) {
-  await dbConnect();
-  const body = await req.json();
-  if (body?.email && body?.password) {
-    const u = await User.findOne({ email: body?.email });
-    if (u) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "User already exits",
-        },
-        { status: 400 }
-      );
-    }
-    const hashPassword = await bcrypt.hash(body?.password, 12);
-    const cu = await User.create({
-      name: body?.name,
-      email: body?.email,
-      password: hashPassword,
-    });
-    if (cu) {
-      let token = jwt.sign(
-        { success: true, userid: cu?._id, email: cu?.email },
-        process.env.JWT_SECRET,
-        { expiresIn: "1h" },
-        {
-          alg: "PS512",
-          typ: "JWT",
-        }
-      );
-      let htmlemail = `<!DOCTYPE html>
+  try {
+    await dbConnect();
+    const body = await req.json();
+    if (body?.email && body?.password) {
+      const u = await User.findOne({ email: body?.email });
+      if (u) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "User already exits",
+          },
+          { status: 400 }
+        );
+      }
+      const hashPassword = await bcrypt.hash(body?.password, 12);
+      const cu = await User.create({
+        name: body?.name,
+        email: body?.email,
+        password: hashPassword,
+      });
+      if (cu) {
+        let token = jwt.sign(
+          { success: true, userid: cu?._id, email: cu?.email },
+          process.env.JWT_SECRET,
+          { expiresIn: "1h" },
+          {
+            alg: "PS512",
+            typ: "JWT",
+          }
+        );
+        let htmlemail = `<!DOCTYPE html>
       <html>
       <head>
       
@@ -287,73 +288,82 @@ export async function POST(req) {
       
       </body>
       </html>`;
-      var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASSWORD_EMAIL,
-        },
-        secure: true,
-        host: "smtp.titan.email",
-        port: 465,
-      });
-      var mailOptions = {
-        from: process.env.EMAIL,
-        to: cu?.email,
-        subject: "Verify User",
-        html: htmlemail,
-      };
-
-      const server = await new Promise((resolve, reject) => {
-        // verify connection configuration
-        transporter.verify(function (error, success) {
-          if (success) {
-            resolve(success);
-          }
-          reject(error);
-        });
-      });
-      if (!server) {
-        return NextResponse.json(
-          { success: false, message: "Error failed" },
-          { status: 500 }
-        );
-      }
-
-      const success = await new Promise((resolve, reject) => {
-        // send mail
-        transporter.sendMail(mailOptions).then((info, err) => {
-          if (info.response.includes("250")) {
-            resolve(true);
-          }
-          reject(err);
-        });
-      });
-
-      if (!success) {
-        return NextResponse.json(
-          {
-            success: false,
-            message: "Error sending email",
+        var transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD_EMAIL,
           },
-          { status: 500 }
-        );
+          secure: true,
+          host: "smtp.titan.email",
+          port: 465,
+        });
+        var mailOptions = {
+          from: process.env.EMAIL,
+          to: cu?.email,
+          subject: "Verify User",
+          html: htmlemail,
+        };
+
+        const server = await new Promise((resolve, reject) => {
+          // verify connection configuration
+          transporter.verify(function (error, success) {
+            if (success) {
+              resolve(success);
+            }
+            reject(error);
+          });
+        });
+        if (!server) {
+          return NextResponse.json(
+            { success: false, message: "Error failed" },
+            { status: 500 }
+          );
+        }
+
+        const success = await new Promise((resolve, reject) => {
+          // send mail
+          transporter.sendMail(mailOptions).then((info, err) => {
+            if (info.response.includes("250")) {
+              resolve(true);
+            }
+            reject(err);
+          });
+        });
+
+        if (!success) {
+          return NextResponse.json(
+            {
+              success: false,
+              message: "Error sending email",
+            },
+            { status: 500 }
+          );
+        }
       }
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Account has been created successfully. Verify email",
+        },
+        { status: 200 }
+      );
+    } else {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Please check the email and password",
+        },
+        { status: 500 }
+      );
     }
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Account has been created successfully. Verify email",
-      },
-      { status: 200 }
-    );
-  } else {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Please check the email and password",
-      },
-      { status: 500 }
-    );
+  } catch (error) {
+     return NextResponse.json(
+       {
+         success: false,
+         message: "Failed to send email",
+       },
+       { status: 500 }
+     );
   }
 }

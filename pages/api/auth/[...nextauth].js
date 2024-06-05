@@ -13,33 +13,34 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        await dbConnect()
+        await dbConnect();
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials");
         }
-        const user = await User.findOne({email:credentials?.email}) 
+        const user = await User.findOne({ email: credentials?.email });
         if (!user || !user?.password) {
-            throw new Error("Invalid credentials")
+          throw new Error("Invalid credentials");
         }
-        if (!(user?.verified)) {
-            throw new Error("Email not verified")
+        if (!user?.verified) {
+          throw new Error("Email not verified");
         }
         const isCorrectPass = await bcrypt.compare(
-            credentials.password,user.password
-        )
+          credentials.password,
+          user.password
+        );
 
-        if(!isCorrectPass){
-            throw new Error("Invalid credentials")
+        if (!isCorrectPass) {
+          throw new Error("Invalid credentials");
         }
         return user;
       },
     }),
   ],
-  session:{
-    strategy:'jwt'
+  session: {
+    strategy: "jwt",
   },
-  secret:process.env.NEXTAUTH_SECRET,
-  debug:process.env.NODE_ENV==='development',
+  secret: (process.env.NEXTAUTH_SECRET).toString(),
+  debug: process.env.NODE_ENV === "development",
 };
 
 export default NextAuth(authOptions);
